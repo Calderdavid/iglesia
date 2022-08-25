@@ -4,9 +4,9 @@ import { AuthRoutes } from '../auth/routes/AuthRoutes'
 import { IglesiaRoutes } from '../iglesia/routes/IglesiaRoutes'
 
 export const AppRouter = () => {
+
   return (
     <Routes>
-
         {/* Login y Registro */}
         <Route path="/auth/*" element={<AuthRoutes />}/>
 
@@ -15,4 +15,3 @@ export const AppRouter = () => {
     </Routes>
   )
 }
-

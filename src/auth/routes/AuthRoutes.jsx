@@ -10,7 +10,7 @@ export const AuthRoutes = () => {
 
         {/* cualquier otra ruta que no sea ninguna de login o register */}
         {/* va a navegar a login */}
-        <Route path="/*" element={<Navigate to="/auth/login" />} />
+        {/* <Route path="/*" element={<Navigate to="/auth/login" />} /> */}
     </Routes>
   )
 }
