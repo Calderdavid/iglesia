@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
-import { LoginPage } from '../auth/pages'
+import { LoginPage, RegisterPage } from '../auth/pages'
 import { AuthRoutes } from '../auth/routes/AuthRoutes'
 import { useAuthStore } from '../hooks/usAuthStore'
 import { IglesiaRoutes } from '../iglesia/routes/IglesiaRoutes'
@@ -29,6 +29,7 @@ export const AppRouter = () => {
             : (
               <>
                 <Route path="/" element={<IglesiaRoutes />}/>
+                {/* <Route path="/auth/register" element={<RegisterPage />} /> */}
                 <Route path="/*" element={ <Navigate to="/" /> } />
               </>
             )

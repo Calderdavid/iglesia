@@ -4,7 +4,6 @@ import { Grid, Typography, TextField, Button, Link } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks/useForm'
 import { useAuthStore } from '../../hooks/usAuthStore'
-import { SwapCalls } from '@mui/icons-material'
 import Swal from 'sweetalert2'
 
 const loginFormFields = {
