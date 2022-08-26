@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import iglesiaApi from '../api/iglesiaApi'
-import { onChecking, onLogin } from '../store/auth/authSlice';
+import { onChecking, onLogin, onLogout, clearErrorMessage } from '../store/auth/authSlice';
 
 export const useAuthStore = () => {
 
@@ -17,7 +17,10 @@ export const useAuthStore = () => {
             dispatch( onLogin({name: data.status, msg: data.msg}) );
 
         } catch (error) {
-            console.log(error);
+           dispatch(onLogout('Credenciales incorrectas'));
+           setTimeout(() =>{
+                dispatch(clearErrorMessage())
+           }, 10)
         }
     }
 
