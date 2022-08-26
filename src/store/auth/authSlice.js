@@ -25,7 +25,7 @@ export const authSlice = createSlice({
         },
         clearErrorMessage: ( state ) => {
             state.errorMessage = undefined;
-        }
+        },
     }
 });
 // Action creators are generated for each case reducer function
