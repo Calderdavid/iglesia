@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Link as RouterLink} from 'react-router-dom'
 import { Grid, Typography, TextField, Button, Link } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks/useForm'
 import { useAuthStore } from '../../hooks/usAuthStore'
+import { SwapCalls } from '@mui/icons-material'
+import Swal from 'sweetalert2'
 
 const loginFormFields = {
   loginEmail: '',
@@ -12,7 +14,7 @@ const loginFormFields = {
 
 export const LoginPage = () => {
 
-  const { startLogin } = useAuthStore();
+  const { startLogin, errorMessage } = useAuthStore();
 
   const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
 
@@ -21,6 +23,12 @@ export const LoginPage = () => {
     // console.log({loginEmail, loginPassword});
     startLogin({email: loginEmail, password: loginPassword});
   }
+
+  useEffect(() => {
+    if( errorMessage !== undefined ) {
+      Swal.fire('Error en la autenticación', errorMessage, 'error');
+    }
+  }, [errorMessage])
  
 
   return (     
