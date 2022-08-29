@@ -16,3 +16,14 @@
     border-radius: 5px;
     padding-left: .5vw;
 }
+.boton{
+    background-color: rgb(238, 152, 81);
+    width: 10vw;
+    height: 2vw;
+    border-radius: 15px; 
+    text-align: center;
+    font-family: 'Raleway-bold';
+    padding-top: .4vw;
+    display: flex;
+    flex-direction: row;
+}
