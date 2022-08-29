@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react'
 import Sidebar from './componentes/Sidebar/Sidebar';
-import Contents from './componentes/index/contents';
+import Contents from './componentes/documentos/contents';
 
-export const IglesiaPage = () => {
+export const Documentos = () => {
 
   return (
     <Box>
-      <Sidebar actual={"Tablero Principal"}/>
+      <Sidebar actual={"Documentos"}/>
       <Contents />
     </Box>
   )

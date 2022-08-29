@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Raleway-regular';
+    src: url(fonts/raleway-v28-latin-regular.ttf) format("truetype"),
+    url(fonts/raleway-v28-latin-regular.woff) format("woff");
+  }
+  @font-face {
+    font-family: 'Raleway-bold';
+    src: url(fonts/raleway-v28-latin-800.ttf) format("truetype"),
+    url(fonts/raleway-v28-latin-800.woff) format("woff");
+  }
+
+@import './react-calendar.scss';
