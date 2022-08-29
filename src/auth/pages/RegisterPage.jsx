@@ -19,6 +19,17 @@ export const RegisterPage = () => {
 
   const { registerName, registerEmail, registerPassword, registerPassword2, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
 
+  const saveData = async (name,email,password) => {
+    let result = await fetch("http://localhost:8000/register",{
+        method:"post",
+        body: JSON.stringify({name,email,password}),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    });
+    result = await result.json();
+    console.log(result);
+    }
 
   const registerSubmit = (event) => {
     event.preventDefault();
@@ -26,8 +37,8 @@ export const RegisterPage = () => {
       Swal.fire('Error en registro', 'Las contraseñas no coinciden', 'error');
       return
     }
-
-    startRegister({name: registerName, email: registerEmail, password: registerPassword});
+    saveData(registerName,registerEmail,registerPassword);
+    // startRegister({name: registerName, email: registerEmail, password: registerPassword});
 
   }
 

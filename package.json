@@ -9,17 +9,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.2.9",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.10.0",
+    "@mui/icons-material": "^5.10.2",
+    "@mui/material": "^5.10.2",
+    "@mui/styles": "^5.10.2",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
+    "framer-motion": "^7.2.1",
     "react": "^18.2.0",
+    "react-calendar": "^3.7.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "6",
-    "sweetalert2": "^11.4.29"
+    "react-select": "^5.4.0",
+    "sass": "^1.54.5",
+    "sweetalert2": "^11.4.29",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

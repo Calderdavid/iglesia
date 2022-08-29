@@ -1,0 +1,23 @@
+.notificaciones{
+    background-color: rgb(247, 192, 134);
+    width: 19.1vw;
+    height: 4vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+}
+.Notif_imagenes{
+    background-Color: rgb(238, 152, 81);
+    border-radius: 50px;
+    width: 3.4vw;
+    height: 3.4vw;
+    margin: 0 0 0 1vw;
+    padding-bottom: .5vw;
+    display: flex;
+    align-items: center;
+}
+.Notif_texto {
+    padding-left: .6vw;
+    font-size: 1vw;
+}
