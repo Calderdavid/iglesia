@@ -16,6 +16,12 @@ import Styles from './Tablero.module.scss'
 
 import Ver from '../../../../../assets/images/view.png'
 import Borrar from '../../../../../assets/images/delete.png'
+import bautismo_black from '../../../../../assets/images/bautismo_black.png'
+import bautismo_white from '../../../../../assets/images/bautismo_white.png'
+import confirmacion_black from '../../../../../assets/images/confirmacion_black.png'
+import confirmacion_white from '../../../../../assets/images/confirmacion_white.png'
+import matrimonio_black from '../../../../../assets/images/matrimonio_black.png'
+import matrimonio_white from '../../../../../assets/images/matrimonio_white.png'
 import { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../api/iglesiaApi'
@@ -83,9 +89,9 @@ export default function Tablero() {
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                             <HStack spacing="12%" justifyContent="center">
-                                {(data.bautismo === true ) ? ( <Image src={Ver} alt="Ver" w="1.5vw" />): ( <Image src={Borrar} alt="Borrar" w="1.4vw" />)}
-                                {(data.confirmacion === true ) ? ( <Image src={Ver} alt="Ver" w="1.5vw" />): ( <Image src={Borrar} alt="Borrar" w="1.4vw" />)}
-                                {(data.matrimonio === true ) ? ( <Image src={Ver} alt="Ver" w="1.5vw" />): ( <Image src={Borrar} alt="Borrar" w="1.4vw" />)}
+                                {(data.bautismo === true ) ? ( <Image src={bautismo_black} alt="Ver" w="1.5vw" />): ( <Image src={bautismo_white} alt="Borrar" w="1.4vw" />)}
+                                {(data.confirmacion === true ) ? ( <Image src={confirmacion_black} alt="Ver" w="1.5vw" />): ( <Image src={confirmacion_white} alt="Borrar" w="1.4vw" />)}
+                                {(data.matrimonio === true ) ? ( <Image src={matrimonio_black} alt="Ver" w="1.5vw" />): ( <Image src={matrimonio_white} alt="Borrar" w="1.4vw" />)}
                             </HStack>
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
