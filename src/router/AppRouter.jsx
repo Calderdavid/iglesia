@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
-import { LoginPage, RegisterPage } from '../auth/pages'
+import { LoginPage } from '../auth/pages'
 import { AuthRoutes } from '../auth/routes/AuthRoutes'
 import { useAuthStore } from '../hooks/usAuthStore'
 import { IglesiaRoutes } from '../iglesia/routes/IglesiaRoutes'
 import { Documentos } from '../iglesia/pages/Documentos'
 import { Usuarios } from '../iglesia/pages/Usuarios'
+import { IglesiaPage } from "../iglesia/pages/IglesiaPage"
+
+
+
 export const AppRouter = () => {
 
-  // const { status } = useAuthStore();
+  const { status, checkAuthToken } = useAuthStore();
 
-  const status = "authenticated"
+  useEffect(() => {
+    checkAuthToken();
+  }, [])
+  
+  
 
   if (status === 'checking') {
     return (
@@ -24,23 +32,19 @@ export const AppRouter = () => {
           (status === 'not-authenticated')
             ? (
               <>
-                <Route path="/auth/register" element={<RegisterPage />}/>
                 <Route path="/auth/*" element={<LoginPage />}/>
                 <Route path="/*" element={ <Navigate to="/auth/login" /> } />
               </>
             )
             : (
               <>
+                <Route path="/" element={<IglesiaPage />}/>
                 <Route path="/Documentos" element={<Documentos/>} />
                 <Route path="/Usuarios" element={<Usuarios/>} />
-                <Route path="/" element={<IglesiaRoutes />}/>
                 <Route path="/*" element={ <Navigate to="/" /> } />
               </>
             )
         }
-        {/* <Route path="/" element={<IglesiaRoutes />}/> */}
-        {/* <Route path="/auth/register" element={<RegisterPage />} />
-        <Route path="/auth/*" element={<LoginPage />}/> */}
     </Routes>
   )
 }

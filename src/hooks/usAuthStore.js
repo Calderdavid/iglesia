@@ -51,6 +51,23 @@ export const useAuthStore = () => {
         }
     }
 
+    const checkAuthToken = async() => {
+        const token = localStorage.getItem('token');
+
+        if (!token) return dispatch(onLogout());
+
+        try {
+            const { data } = await iglesiaApi.get('renew');
+            localStorage.setItem('token', data.token );
+            localStorage.setItem('token-init-date', new Date().getTime() );
+            dispatch( onLogin({name: data.name, uid: data.uid}) );
+
+        } catch ( error ) {
+            localStorage.clear();
+            dispatch(onLogout());
+        }
+    }
+
 
     return {
         //Propiedades
@@ -61,6 +78,7 @@ export const useAuthStore = () => {
 
         //Métodos
         startLogin,
-        startRegister
+        startRegister,
+        checkAuthToken
     }
 }

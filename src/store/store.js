@@ -8,6 +8,8 @@ export const store = configureStore({
         ui: uiSlice.reducer,
         auth: authSlice.reducer,
         adduser: addUser.reducer
-    }
-
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    })
 })

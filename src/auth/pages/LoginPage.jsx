@@ -1,10 +1,27 @@
-import React, { useEffect } from 'react'
-import {Link as RouterLink} from 'react-router-dom'
-import { Grid, Typography, TextField, Button, Link } from '@mui/material'
-import { AuthLayout } from '../layout/AuthLayout'
+import React, { useEffect, useState } from 'react'
+import {
+  Flex,
+  Heading,
+  Input,
+  Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Link,
+  Avatar,
+  FormControl,
+  FormHelperText,
+  InputRightElement
+} from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
 import { useForm } from '../../hooks/useForm'
 import { useAuthStore } from '../../hooks/usAuthStore'
 import Swal from 'sweetalert2'
+
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
 
 const loginFormFields = {
   loginEmail: '',
@@ -30,55 +47,94 @@ export const LoginPage = () => {
   }, [errorMessage])
  
 
-  return (     
-    <AuthLayout title="Iniciar Sesión">
-      <form onSubmit={loginSubmit}>
-          <Grid container>
-            <Grid item xs={12} sx={{mt: 2}}>
-              <TextField 
-                label="Correo" 
-                type="email" 
-                placeholder="ejemplo@gmail.com"
-                fullWidth
-                name="loginEmail"
-                value={loginEmail}
-                onChange={onLoginInputChange}
-              />
-            </Grid>
+  const [showPassword, setShowPassword] = useState(false);
 
-            <Grid item xs={12} sx={{mt: 2}}>
-              <TextField 
-                label="Contraseña" 
-                type="password" 
-                placeholder="Contraseña"
-                fullWidth
-                name="loginPassword"
-                value={loginPassword}
-                onChange={onLoginInputChange}
-              />
-            </Grid>
+  const handleShowClick = () => setShowPassword(!showPassword);
 
-            <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
-              <Grid item xs={12}>
-                <Button variant="contained" fullWidth type="submit">
-                  INICIAR SESIÓN
-                </Button>
-              </Grid>
-
-            </Grid>
-
-            {/* <Grid container direction="row" justifyContent="end">
-              <Link component={RouterLink} color="inherit" to="/auth/register">
-                Crear una cuenta
-              </Link>
-              
-            </Grid> */}
-
-
-          </Grid>
-        </form>
-    </AuthLayout>   
-        
-
-  )
-}
+  return (
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      backgroundColor="gray.200"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Avatar bg="rgb(238, 152, 81)" />
+        <Heading color="rgb(238, 152, 81)">Welcome</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form onSubmit={loginSubmit}>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
+            >
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<CFaUserAlt color="gray.300" />}
+                  />
+                  <Input 
+                    type="email" 
+                    placeholder="Correo" 
+                    name="loginEmail"
+                    value={loginEmail}
+                    onChange={onLoginInputChange}
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    children={<CFaLock color="gray.300" />}
+                  />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Contraseña"
+                    name="loginPassword"
+                    value={loginPassword}
+                    onChange={onLoginInputChange}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {/* <FormHelperText textAlign="right">
+                  <Link>forgot password?</Link>
+                </FormHelperText> */}
+              </FormControl>
+              <Button
+                borderRadius={0}
+                type="submit"
+                variant="solid"
+                colorScheme="teal"
+                backgroundColor="rgb(238, 152, 81)"
+                width="full"
+              >
+                Login
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+      {/* <Box>
+        New to us?{" "}
+        <Link color="rgb(238, 152, 81)" href="#">
+          Sign Up
+        </Link>
+      </Box> */}
+    </Flex>
+  );
+};
