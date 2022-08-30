@@ -23,7 +23,7 @@ import iglesiaApi from '../../../../../../api/iglesiaApi'
 export default function Tablero() {
 
     // variables de prueba
-    
+    /*
     const dataTable = {
         Headers: ["ID", "Nombre / Apellido", "Correo Electrónico", "Última conexión", "Ver", "Eliminar"],
         Data: [
@@ -45,10 +45,10 @@ export default function Tablero() {
         {_id: "0000000008", name: "Marcos", lastname: "Tejedor", email: "mtejedor@correo.com", ult_vez: "29/12/2021"},
         {_id: "0000000009", name: "Mari", lastname: "Perea", email: "mperea@correo.com", ult_vez: "29/12/2021"}]
     }
-    
+    */
     const [selectedUser, setSelectedUser] = useState({})
     const [preventFirstLoad, setPreventFirstLoad] = useState(0);
-    const [dataTablee, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Correo Electrónico", "Última conexión", "Ver", "Eliminar"],
+    const [dataTable, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Correo Electrónico", "Última conexión", "Ver", "Eliminar"],
     Data: []})
 
     const getFirstUsers = async () => {
@@ -167,19 +167,13 @@ export default function Tablero() {
                             27 diciembre 2021
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            <Box backgroundColor="#74CBAC" padding="0 .3vw 0 .3vw" display="flex" justifyContent="center" borderRadius="15px">
-                            <Link 
-                            // onClick={Editor(i)}
-                            >
-                                    <Image src={Ver} alt="Ver" w="1.5vw" />
-                            </Link>
+                            <Box className={Styles.ver}>
+                                <Image src={Ver} alt="Ver" w="1.5vw" />
                             </Box>
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            <Box backgroundColor="white" padding="0 .3vw 0 .3vw" margin="0 1vw 0 1vw" display="flex" justifyContent="center" borderRadius="15px" borderColor="#F90000" borderWidth="2px" onClick={(event) => AlertDeleteUsers(i)} >
-                                <Link >
-                                    <Image src={Borrar} alt="Borrar" w="1.4vw" />
-                                </Link>
+                            <Box className={Styles.borrar} onClick={(event) => AlertDeleteUsers(i)} >
+                                <Image src={Borrar} alt="Borrar" w="1.4vw" />
                             </Box>
                         </Td>
                         </Tr>
