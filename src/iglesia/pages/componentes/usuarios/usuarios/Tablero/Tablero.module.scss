@@ -17,3 +17,20 @@ font-size: .9vw;
 text-align: center;
 
 }
+.borrar{
+  background-color: white;
+  padding: 0 .3vw 0 .3vw;
+  margin: 0 1vw 0 1vw;
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  border-color: #F90000;
+  border-width: 2px; 
+}
+.ver{
+  background-color: #74CBAC;
+  padding: 0 .3vw 0 .3vw;
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+}

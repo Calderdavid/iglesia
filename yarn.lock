@@ -295,7 +295,7 @@
   resolved "https://registry.yarnpkg.com/@chakra-ui/breakpoint-utils/-/breakpoint-utils-2.0.3.tgz#af7f7603f31a7d8d0166307a47e88cf5902401b4"
   integrity sha512-smi41ZtaiPw4mXaCgicyAh5M45Drt20wypThP+qQUT2CQ51UFZhYlItRA2lCXKQ9QB83POcHPC/oAwIsNOAfTg==
 
-"@chakra-ui/button@2.0.9":
+"@chakra-ui/button@2.0.9", "@chakra-ui/button@^2.0.9":
   version "2.0.9"
   resolved "https://registry.yarnpkg.com/@chakra-ui/button/-/button-2.0.9.tgz#f005f98bb5f1d5673a244957e6b3e2396acdf395"
   integrity sha512-4BuDBiBlChHW1rQ9iod9MKs87AY3IyvZQwjV3DZTU4IG0KcDDfLQf++jj4dkg9Ttu+pIWhwF42pzA40JxW1oNg==
@@ -425,6 +425,13 @@
   integrity sha512-P2Pwm/za6m1W1oqL2kGHH6XrrymsBjqYAFwOW2lB5Q6mI1e+RYe/iMxDoPSLHMYhqdfH7vyib/ffE3Vv3a5oTA==
   dependencies:
     "@chakra-ui/shared-utils" "2.0.1"
+
+"@chakra-ui/icons@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-2.0.9.tgz#35edcf9c61b8e158a5d03aeda6bd4e756960dfc7"
+  integrity sha512-6xvV2rC8wATgfnRH+fC9mi0nLcgKjhHKO29lV1pGioVI0yWK0dqc//zjcyBhMMpW5ABnSfig7ujVBf3op/Syzg==
+  dependencies:
+    "@chakra-ui/icon" "3.0.9"
 
 "@chakra-ui/image@2.0.10":
   version "2.0.10"
