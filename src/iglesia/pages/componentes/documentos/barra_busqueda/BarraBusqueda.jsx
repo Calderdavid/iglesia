@@ -1,10 +1,11 @@
-import { Box, HStack, Input, Stack, VStack } from "@chakra-ui/react";
+import { Box, HStack, Input, Stack, VStack, FormControl,InputGroup,InputLeftElement,chakra} from "@chakra-ui/react";
 import Styles from './BarraBusqueda.module.scss'
 import Select from 'react-select'
 import { Button } from '@chakra-ui/react'
 import {CheckIcon} from '@chakra-ui/icons'
 import { useState } from "react";
 
+/*import { useForm } from '../../hooks/useForm'*/
 const options = [
     {value: 'NOMBRE', label: 'Nombre'},
     {value: 'APELLIDO', label: 'Apellido'},
@@ -18,6 +19,7 @@ export default function BarraBusqueda() {
     const [displaySelectButtonOne, setDisplaySelect] = useState(true)
     const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
     const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
+
     const handleButtonOneOnPress = () => {
         setDisplaySelect(!displaySelectButtonOne)
     }
@@ -42,6 +44,7 @@ export default function BarraBusqueda() {
                             <Select 
                             className={Styles.Select}
                             options={options}
+                            
                             //onChange={(event) => {}}
                             />
                         </Box > 
@@ -82,7 +85,13 @@ export default function BarraBusqueda() {
                             <Box>
                                 Matrimonio
                             </Box>
+                            
                         </Stack>
+                        <Input w="13vw"
+                            placeholder="Select Date and Time"
+                            size="md"
+                            type="datetime-local"
+                            />
                     </HStack>
                 </VStack>
             </Box>
