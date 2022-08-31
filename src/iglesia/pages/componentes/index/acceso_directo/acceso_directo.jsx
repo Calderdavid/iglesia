@@ -29,44 +29,42 @@ export default function AccesoDirecto(){
                         </Box>
                     </Box>
                 </Link>
-                <Link href="/">
+
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
                             <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
                             <Table className={Styles.UVregular}>
-                            <HStack>
-                                <Tbody>
-                                    <Td>
-                                        <Box>
-
-                                        <Button colorScheme='facebook' leftIcon={<FaFacebook />} onClick={handleButtonOneOnPress}>
-                                            {!displayRedirecButtonFA ? (
-                                                <Link href='https://web.facebook.com/Parroquia-Santo-Toribio-de-Las-Condes-474555292658302/' isExternal>
-                                                    <ExternalLinkIcon w='2vw' />
-                                                </Link>
-                                            ) : <></>}
-                                        </Button>
-                                        </Box>
-                                    </Td>
-                                        <Td>
-                                            <Box>
-                                                <Button colorScheme='red' leftIcon={<FaYoutube />}>
-                                                    {!displayRedirecButtonYOU ? (
-                                                        <Link href='https://www.youtube.com/channel/UCro3erV_F9i_WBwLpKvV4EA' isExternal>
-                                                            <ExternalLinkIcon w='2vw' />
-                                                        </Link>
-                                                    ) : <></>}
-                                                </Button>
+                            <HStack alignItems="start" marginLeft="1vw">
+                                <HStack alignItems="start" marginLeft="1vw" spacing="2%">
+                                    <VStack alignItems="start" marginLeft="1vw" spacing="2%">
+                                            <Box direction='row' spacing={4} align='center'  >
+                                                    <Link href='https://web.facebook.com/Parroquia-Santo-Toribio-de-Las-Condes-474555292658302/' isExternal padding="vw">
+                                                        
+                                                        <Button colorScheme='facebook' leftIcon={<FaFacebook />} w="8vw">
+                                                            Facebook
+                                                        </Button>
+                                                    </Link>
                                             </Box>
-                                        </Td>
-                                    </Tbody>
+                                    </VStack >
+                                </HStack>
+                                <HStack alignItems="start" marginLeft="1vw" spacing="2%">
+                                    <VStack alignItems="start" marginLeft="1vw" spacing="2%">
+                                                <Box direction='row' spacing={4} align='center'  >
+                                                        <Link href='https://www.youtube.com/channel/UCro3erV_F9i_WBwLpKvV4EA' isExternal padding="vw">   
+                                                            <Button colorScheme='red' leftIcon={<FaFacebook />} w="8vw">
+                                                                YouTube
+                                                            </Button>
+                                                        </Link>
+                                                </Box>
+                                    </VStack>
+                                </HStack>
                             </HStack>
                             </Table>
                         </Box>
                     </Box>
-                </Link>
+
                 <Link href="/">
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>

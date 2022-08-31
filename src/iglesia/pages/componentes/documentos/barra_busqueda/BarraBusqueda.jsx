@@ -15,9 +15,9 @@ const options = [
 ]
 
 export default function BarraBusqueda() {
-    const [displaySelectButtonOne, setDisplaySelect] = useState(false)
-    const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(false)
-    const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(false)
+    const [displaySelectButtonOne, setDisplaySelect] = useState(true)
+    const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
+    const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
     const handleButtonOneOnPress = () => {
         setDisplaySelect(!displaySelectButtonOne)
     }
