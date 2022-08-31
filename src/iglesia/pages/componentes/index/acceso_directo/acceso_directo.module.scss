@@ -26,3 +26,22 @@
     padding-left: .6vw;
     font-size: 2vw;
 }
+.UVregular{
+    font-family: 'Raleway-regular';
+    border-Color: #70ACB5;
+    size: lg;
+    width: 74vW;
+    color-scheme: teal
+  }
+.UVbold{
+    font-family: 'Raleway-bold';
+  }
+.UVregular Box,
+.UVregular Th,
+.UVregular Td,
+.UVbold Td {
+padding-bottom: .5vw;
+font-size: .9vw;
+text-align: center;
+
+}
