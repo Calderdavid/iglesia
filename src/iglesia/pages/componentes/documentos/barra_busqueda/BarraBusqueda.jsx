@@ -21,13 +21,7 @@ export default function BarraBusqueda() {
     const [displaySelectButtonOne, setDisplaySelect] = useState(true)
     const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
     const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
-    const [ListadoDocumento, setListaDocumento] = useState([])
-    const [ id, setId ] = useState('')
-    const [ nombre, setNombre ] = useState('')
-    const [ email, setemail ] = useState('')
-    const [ buscar, setBuscar ] = useState('')
-    const [ texto, setTexto ] = useState('')
-    const [ bandera, setBandera ] = useState(true)
+    
     const handleButtonOneOnPress = () => {
         setDisplaySelect(!displaySelectButtonOne)
     }
@@ -37,6 +31,14 @@ export default function BarraBusqueda() {
     const handleButtonThreeOnPress = () => {
         setDisplaySelectButtonThree(!displaySelectButtonThree)
     }
+    const [ListadoDocumento, setListaDocumento] = useState([])
+    const [ id, setId ] = useState('')
+    const [ nombre, setNombre ] = useState('')
+    const [ email, setemail ] = useState('')
+    const [ buscar, setBuscar ] = useState('')
+    const [ texto, setTexto ] = useState('')
+    const [ bandera, setBandera ] = useState(true)
+    
     useEffect(() => {
         getDocumentos()
     },[])
@@ -60,7 +62,7 @@ export default function BarraBusqueda() {
     
     const getDocumentos = async () => {
         const res = await axios.get(iglesiaApi) 
-        setListaLibro(res.data) 
+        setListaDocumento(res.data) 
     }
     
     const addDocumento = async () => {
@@ -74,7 +76,7 @@ export default function BarraBusqueda() {
     const deleteDocumento = async (id) => {
         const res = await axios.delete(iglesiaApi+'/'+id)
         console.log(res.data)
-        getLibros()
+        getDocumentos()
     }
     
     const getDocumento = async (id) => {
