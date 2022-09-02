@@ -1,6 +1,8 @@
 import { Box, HStack } from '@chakra-ui/react'
 import BarraBusqueda from './barra_busqueda/BarraBusqueda'
-import Tablero from  './Tablero/Tablero'
+import Tablero from  './Tablero/TableroDocumento'
+import React from 'react';
+
 export default function Contents() {
     return(
         <Box marginLeft="20vw" paddingTop="1.5vw" >

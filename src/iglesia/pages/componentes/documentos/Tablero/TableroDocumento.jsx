@@ -25,7 +25,8 @@ import matrimonio_white from '../../../../../assets/images/matrimonio_white.png'
 import { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../api/iglesiaApi'
-
+import BarraBusqueda from '../barra_busqueda/BarraBusqueda'
+import axios from "axios";
 export default function Tablero() {
 
     // variables de prueba
@@ -54,7 +55,8 @@ export default function Tablero() {
     
     const [dataTablee, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Fecha inscripción", "Sacramentos", "Ver", "Eliminar"],
     Data: []})
-
+    
+    
     return(
         <Box padding="1vw 0 0 2vw">
             <Box maxHeight="39vw" overflowY="scroll" borderRadius="15px" w="74.9vw">
@@ -75,6 +77,7 @@ export default function Tablero() {
                 </Tr>
                 </Thead>
                     <Tbody >
+                        
 
                         {dataTable.Data.map((data, i) => (
                         <Tr key={i} >

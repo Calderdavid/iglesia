@@ -13,12 +13,19 @@ import {
     HStack,
   } from '@chakra-ui/react'
 import Styles from './Tablero.module.scss'
-
+import axios from 'axios'
+import React from 'react'
 import Ver from '../../../../../../assets/images/view.png'
 import Borrar from '../../../../../../assets/images/delete.png'
 import { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../../api/iglesiaApi'
+
+
+
+
+
+
 
 export default function Tablero() {
 
