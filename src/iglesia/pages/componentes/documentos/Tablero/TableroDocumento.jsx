@@ -13,6 +13,7 @@ import {
     HStack,
   } from '@chakra-ui/react'
 import Styles from './Tablero.module.scss'
+//import { useDispatch } from "react-redux"
 
 import Ver from '../../../../../assets/images/view.png'
 import Borrar from '../../../../../assets/images/delete.png'
@@ -27,11 +28,13 @@ import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../api/iglesiaApi'
 import BarraBusqueda from '../barra_busqueda/BarraBusqueda'
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux'
+
 export default function Tablero() {
 
     // variables de prueba
     
-    const dataTable = {
+    /*const dataTable = {
         Headers: ["ID", "Nombre / Apellido", "Fecha inscripción", "Sacramentos", "Ver", "Eliminar"],
         Data: [
         {_id: "0000000001", name: "Lucia", lastname: "Jerez", fecha_inscripcion: "29/12/2021", bautismo: false, confirmacion: false, matrimonio: false},
@@ -51,12 +54,86 @@ export default function Tablero() {
         {_id: "0000000007", name: "Rosana", lastname: "Aguado", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: false, matrimonio: true},
         {_id: "0000000008", name: "Marcos", lastname: "Tejedor", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
         {_id: "0000000009", name: "Mari", lastname: "Perea", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: false}]
-    }
-    
-    const [dataTablee, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Fecha inscripción", "Sacramentos", "Ver", "Eliminar"],
+    }*/
+    const [selectedDocument, setSelecteddocument] = useState({})
+    const [preventFirstLoad, setPreventFirstLoad] = useState(0);
+    const [dataTable, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Fecha inscripción", "Sacramentos", "Ver", "Eliminar"],
     Data: []})
     
+    const getFirstDocumentos = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', {search: "default", buscar: ""})
+        console.log(peticion.dataTable)
+        setDataTable({
+            ...dataTable,
+            Data: peticion.data.documents
+        })
+    }
     
+    const AlertDeleteDocument= async (i)  => {
+        setSelecteddocument(dataTable.Data[i])
+    }
+    const handleRemoveItem = () => {
+        const backup = dataTable.Data
+        const secondBackup = []
+        for(var element in backup)
+        {
+            if (backup[element]._id != selectedDocument._id)
+            {
+                secondBackup.push(backup[element]);
+            }
+        }
+        setDataTable({
+            ...dataTable,
+            Data: secondBackup
+        });
+    }
+    const Deletedocument = () => {
+        Swal.fire({
+            title: '¿Estás seguro que quieres borrar este documento?',
+            text: `Documento: ${selectedDocument.name} ${selectedDocument.lastname}`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, ¡Quiero Borrarlo!'
+        }).then( async (result) => {
+
+            const {data} = await iglesiaApi.post('/deletedoc', selectedDocument)
+            if (result.isConfirmed && data.status == true) {
+                Swal.fire(
+                    'Borrado',
+                    'El documento ha sido eliminado del sistema.',
+                    'success'
+                )
+                handleRemoveItem()
+            }
+            if (result.isConfirmed && data.status == false) {
+                Swal.fire(
+                    'Error',
+                    'No puedes borrar este documento.',
+                    'error'
+                )
+            }
+            if (result.isConfirmed && data.status == undefined) {
+                Swal.fire(
+                    'Error 500',
+                    'Porfavor Informe al administrador',
+                    'error'
+                )
+            }
+        })
+    }
+    useEffect(() => {
+        if(preventFirstLoad == 1)
+        {
+            Deletedocument()
+        } else {
+            setPreventFirstLoad(preventFirstLoad+1)
+        }
+    },[selectedDocument])
+    useEffect(() => {
+        getFirstDocumentos();
+    },[])
     return(
         <Box padding="1vw 0 0 2vw">
             <Box maxHeight="39vw" overflowY="scroll" borderRadius="15px" w="74.9vw">
@@ -89,13 +166,10 @@ export default function Tablero() {
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                             {data.fecha_inscripcion}
+                            27 septiembre 2022
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            <HStack spacing="12%" justifyContent="center">
-                                {(data.bautismo === true ) ? ( <Image src={bautismo_black} alt="Ver" w="1.5vw" />): ( <Image src={bautismo_white} alt="Borrar" w="1.4vw" />)}
-                                {(data.confirmacion === true ) ? ( <Image src={confirmacion_black} alt="Ver" w="1.5vw" />): ( <Image src={confirmacion_white} alt="Borrar" w="1.4vw" />)}
-                                {(data.matrimonio === true ) ? ( <Image src={matrimonio_black} alt="Ver" w="1.5vw" />): ( <Image src={matrimonio_white} alt="Borrar" w="1.4vw" />)}
-                            </HStack>
+                            
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                             <Box className={Styles.ver}>
@@ -103,7 +177,7 @@ export default function Tablero() {
                             </Box>
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            <Box className={Styles.borrar} onClick={(event) => AlertDeleteUsers(i)} >
+                            <Box className={Styles.borrar} onClick={(event) => AlertDeleteDocument(i)} >
                                 <Image src={Borrar} alt="Borrar" w="1.4vw" />
                             </Box>
                         </Td>

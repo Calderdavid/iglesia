@@ -7,21 +7,27 @@ import { useState } from "react"
 import React,{useEffect} from "react"
 import iglesiaApi from '../../../../../api/iglesiaApi';
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux'
+//import { useDispatch } from "react-redux"
 import Tablero from "../Tablero/TableroDocumento";
 
 /*import { useForm } from '../../hooks/useForm'*/
-const options = [
-    {value: 'NOMBRE', label: 'Nombre'},
-    {value: 'APELLIDO', label: 'Apellido'},
-    {value: 'FECHAINSCRIPCION', label: 'Fecha Inscripción'}
-]
 
 
 export default function BarraBusqueda() {
     const [displaySelectButtonOne, setDisplaySelect] = useState(true)
     const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
     const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
-    
+    const dispatch = useDispatch()
+    const options = [
+        {value: 'NOMBRE', label: 'Nombre'},
+        {value: 'APELLIDO', label: 'Apellido'},
+        {value: 'FECHAINSCRIPCION', label: 'Fecha Inscripción'}
+    ]
+    /*const llamarfiltrado = (event) => {
+    event.preventDefault();
+    dispatch(onAddUser({ Show:true }))
+    }*/
     const handleButtonOneOnPress = () => {
         setDisplaySelect(!displaySelectButtonOne)
     }
@@ -39,6 +45,11 @@ export default function BarraBusqueda() {
     const [ texto, setTexto ] = useState('')
     const [ bandera, setBandera ] = useState(true)
     
+    const { Show } = useSelector((state) => state.adduser)
+
+
+
+
     useEffect(() => {
         getDocumentos()
     },[])
@@ -47,10 +58,20 @@ export default function BarraBusqueda() {
         return ListadoDocumento.filter((documento) =>
             documento.nombre.toLoweCase().indexof(buscar.toLowerCase()) >-1)
     }
+
     const getfiltro = async () => {
-        const res = await axios.get(iglesiaApi+'/'+texto)
+        //const res = await axios.get(URL+'/'+texto)
+        const peticion = await iglesiaApi.post('/getdocument', {texto:texto})
+        console.log(texto)
         setListaDocumento(res.data)
+        setDataTable({
+            ...dataTable,
+            Data: peticion.data.users
+        })
+        
     }
+
+
     const refresh = () =>{
         getDocumentos()
         setBuscar('')
@@ -61,7 +82,7 @@ export default function BarraBusqueda() {
     }
     
     const getDocumentos = async () => {
-        const res = await axios.get(iglesiaApi) 
+        const res = await axios.get(URL) 
         setListaDocumento(res.data) 
     }
     
@@ -123,11 +144,13 @@ export default function BarraBusqueda() {
                         </Box > 
                             <Input w="13vw" className="form-control mb-2"
                                 placeHolder = "Ingresa el texto aquí..."
+                                
                                 value={texto}
                                 onChange={(e) => setTexto(e.target.value)}
                                 onKeyUp={getfiltro}
+                                
                             />
-                        
+                            
                         
                         <Stack direction='row' spacing={4} align='center'>
                             <Button colorScheme='teal' variant='outline' onClick={handleButtonOneOnPress}> 
