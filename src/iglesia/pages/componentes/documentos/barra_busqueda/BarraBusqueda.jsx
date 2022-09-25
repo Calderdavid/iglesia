@@ -45,7 +45,7 @@ export default function BarraBusqueda() {
     const [ texto, setTexto ] = useState('')
     const [ bandera, setBandera ] = useState(true)
     
-    const { Show } = useSelector((state) => state.adduser)
+    
 
 
 
@@ -64,6 +64,7 @@ export default function BarraBusqueda() {
         const peticion = await iglesiaApi.post('/getdocument', {texto:texto})
         console.log(texto)
         setListaDocumento(res.data)
+        dispatch(onActualizarDocumentos(peticion.doc))
         setDataTable({
             ...dataTable,
             Data: peticion.data.users

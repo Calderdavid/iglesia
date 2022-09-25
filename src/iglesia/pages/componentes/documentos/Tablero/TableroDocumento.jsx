@@ -30,6 +30,7 @@ import BarraBusqueda from '../barra_busqueda/BarraBusqueda'
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
 
+import { actualizar } from '../../../../../store/actualizardocumento'
 export default function Tablero() {
 
     // variables de prueba
@@ -68,7 +69,11 @@ export default function Tablero() {
             Data: peticion.data.documents
         })
     }
-    
+    const { documento } = useSelector((state) => state.actualizar)
+    useEffect(() => {
+        console.log(documento);
+    },[documento])
+
     const AlertDeleteDocument= async (i)  => {
         setSelecteddocument(dataTable.Data[i])
     }
