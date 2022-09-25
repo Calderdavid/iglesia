@@ -23,14 +23,13 @@ import confirmacion_black from '../../../../../assets/images/confirmacion_black.
 import confirmacion_white from '../../../../../assets/images/confirmacion_white.png'
 import matrimonio_black from '../../../../../assets/images/matrimonio_black.png'
 import matrimonio_white from '../../../../../assets/images/matrimonio_white.png'
+
 import { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../api/iglesiaApi'
-import BarraBusqueda from '../barra_busqueda/BarraBusqueda'
-import axios from "axios";
+
 import { useSelector, useDispatch } from 'react-redux'
 
-import { actualizar } from '../../../../../store/actualizardocumento'
 export default function Tablero() {
 
     // variables de prueba
@@ -69,9 +68,13 @@ export default function Tablero() {
             Data: peticion.data.documents
         })
     }
-    const { documento } = useSelector((state) => state.actualizar)
+    const { documento } = useSelector((state) => state.actualizardocumentos)
+
     useEffect(() => {
-        console.log(documento);
+        setDataTable({
+            ...dataTable,
+            Data: documento
+        })
     },[documento])
 
     const AlertDeleteDocument= async (i)  => {

@@ -2,17 +2,16 @@ import { Box, HStack, Input, Stack, VStack, FormControl,InputGroup,InputLeftElem
 import Styles from './BarraBusqueda.module.scss'
 import Select from 'react-select'
 import { Button } from '@chakra-ui/react'
-import {CheckIcon} from '@chakra-ui/icons'
+import { CheckIcon } from '@chakra-ui/icons'
 import { useState } from "react"
-import React,{useEffect} from "react"
+import React,{ useEffect } from "react"
 import iglesiaApi from '../../../../../api/iglesiaApi';
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
-//import { useDispatch } from "react-redux"
-import Tablero from "../Tablero/TableroDocumento";
+
+import { onActualizarDocumentos } from "../../../../../store/documentos/actualizardocumento";
 
 /*import { useForm } from '../../hooks/useForm'*/
-
 
 export default function BarraBusqueda() {
     const [displaySelectButtonOne, setDisplaySelect] = useState(true)
@@ -46,13 +45,11 @@ export default function BarraBusqueda() {
     const [ bandera, setBandera ] = useState(true)
     
     
-
-
-
-
     useEffect(() => {
-        getDocumentos()
-    },[])
+        // queremos que cada vez que ListadoDocumento se actualize, la funcion de abajo se ejecute
+        dispatch(onActualizarDocumentos(ListadoDocumento))
+
+    },[ListadoDocumento])
 
     function filtrado (){
         return ListadoDocumento.filter((documento) =>
@@ -61,17 +58,16 @@ export default function BarraBusqueda() {
 
     const getfiltro = async () => {
         //const res = await axios.get(URL+'/'+texto)
-        const peticion = await iglesiaApi.post('/getdocument', {texto:texto})
-        console.log(texto)
-        setListaDocumento(res.data)
-        dispatch(onActualizarDocumentos(peticion.doc))
-        setDataTable({
-            ...dataTable,
-            Data: peticion.data.users
-        })
+        const peticion = await iglesiaApi.post('/getdocument', { texto: texto })
+        console.log(peticion.data.doc)
+        setListaDocumento(peticion.data.doc)
+        // dispatch(onActualizarDocumentos(peticion.doc))
+        // setDataTable({
+        //     ...dataTable,
+        //     Data: peticion.data.users
+        // })
         
     }
-
 
     const refresh = () =>{
         getDocumentos()
@@ -83,30 +79,31 @@ export default function BarraBusqueda() {
     }
     
     const getDocumentos = async () => {
-        const res = await axios.get(URL) 
-        setListaDocumento(res.data) 
+        // const res = await axios.get(URL) 
+        // console.log(res)
+        // setListaDocumento(res.data) 
     }
     
     const addDocumento = async () => {
         let obj = { nombre, email } 
-        const res = await  axios.post(iglesiaApi, obj) 
-        console.log(res.data)
+        // const res = await  axios.post(iglesiaApi, obj) 
+        // console.log(res.data)
         setNombre('')
         setEdicion('')
     }  
     
     const deleteDocumento = async (id) => {
-        const res = await axios.delete(iglesiaApi+'/'+id)
-        console.log(res.data)
-        getDocumentos()
+        // const res = await axios.delete(iglesiaApi+'/'+id)
+        // console.log(res.data)
+        // getDocumentos()
     }
     
     const getDocumento = async (id) => {
-        const res = await axios.get(iglesiaApi+'/obtener/'+id)
-        setId(res.data._id)
-        setNombre(res.data.nombre)
-        setemail(res.data.email)
-        setBandera(false)
+        // const res = await axios.get(iglesiaApi+'/obtener/'+id)
+        // setId(res.data._id)
+        // setNombre(res.data.nombre)
+        // setemail(res.data.email)
+        // setBandera(false)
     }
     
     const AgregarActualizarDocumento = () => {
@@ -115,12 +112,12 @@ export default function BarraBusqueda() {
     
     const update = async () => {
         const obj = { id, nombre, email }
-        const res = await axios.put(iglesiaApi, obj)
-        console.log(res.data)
-        setBandera(true)
-        setNombre('')
-        setemail('')
-        getDocumentos()
+        // const res = await axios.put(iglesiaApi, obj)
+        // console.log(res.data)
+        // setBandera(true)
+        // setNombre('')
+        // setemail('')
+        // getDocumentos()
     }
     
     return(
@@ -144,7 +141,7 @@ export default function BarraBusqueda() {
                             
                         </Box > 
                             <Input w="13vw" className="form-control mb-2"
-                                placeHolder = "Ingresa el texto aquí..."
+                                placeholder = "Ingresa el texto aquí..."
                                 
                                 value={texto}
                                 onChange={(e) => setTexto(e.target.value)}
@@ -154,7 +151,7 @@ export default function BarraBusqueda() {
                             
                         
                         <Stack direction='row' spacing={4} align='center'>
-                            <Button colorScheme='teal' variant='outline' onClick={handleButtonOneOnPress}> 
+                            <Button colorScheme='teal' variant='outline' w="1vw" onClick={handleButtonOneOnPress}> 
                             {!displaySelectButtonOne ? (
                                 <CheckIcon color='black' />
                                 ) : <></>}
@@ -164,7 +161,7 @@ export default function BarraBusqueda() {
                             </Box>
                         </Stack>
                         <Stack direction='row' spacing={4} align='center'>
-                            <Button colorScheme='teal' variant='outline' onClick={handleButtonTwoOnPress}> 
+                            <Button colorScheme='teal' variant='outline' w="1vw" onClick={handleButtonTwoOnPress}> 
                             {!displaySelectButtonTwo ? (
                                 <CheckIcon color='black' />
                                 ) : <></>}
@@ -175,7 +172,7 @@ export default function BarraBusqueda() {
                             </Box>
                         </Stack>
                         <Stack direction='row' spacing={4} align='center'>
-                            <Button colorScheme='teal' variant='outline' onClick={handleButtonThreeOnPress}> 
+                            <Button colorScheme='teal' variant='outline' w="1vw" onClick={handleButtonThreeOnPress}> 
                             {!displaySelectButtonThree ? (
                                 <CheckIcon color='black' />
                                 ) : <></>}
