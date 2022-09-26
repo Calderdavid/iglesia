@@ -163,8 +163,6 @@ export default function Tablero() {
                 </Tr>
                 </Thead>
                     <Tbody >
-                        
-
                         {dataTable.Data.map((data, i) => (
                         <Tr key={i} >
                         <Td color="#173F8A" borderColor="#70ACB5" backgroundColor="white" padding=".8vw 0 .8vw 0">

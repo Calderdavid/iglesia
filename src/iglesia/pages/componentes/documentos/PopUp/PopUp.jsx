@@ -104,13 +104,13 @@ export default function PopUp(props) {
               })
         } else {
             var mensaje = "";
-            if (peticion.data.msg == "email already exists")
+            if (peticion.data.msg == "document already exists")
             {
-                mensaje = "El correo ya está registrado en el sistema.";
+                mensaje = "El documento ya está registrado en el sistema.";
             }
-            if (peticion.data.msg == "email or psswrd cant be blank")
+            if (peticion.data.msg == "name and lastname cant be blank")
             {
-                mensaje = "El correo y/o la contraseña no pueden estar en blanco.";
+                mensaje = "El Nombre y el Apellido no pueden estar en blanco.";
             }
             toast({
                 title: `Error`,
