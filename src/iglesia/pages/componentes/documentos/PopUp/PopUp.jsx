@@ -23,8 +23,8 @@ import { PhoneIcon, AtSignIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import Select from 'react-select'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { onAddDocument } from '../../../../../store/documentos/addDocument'
-import { onShowMatrimonio, onShowBautismo, onShowConfirmacion } from '../../../../../store/documentos/addSacramentos'
+import { onAddDocument, onVerYEditar } from '../../../../../store/documentos/addDocument'
+import { onShowMatrimonio, onShowBautismo, onShowConfirmacion, onEdit } from '../../../../../store/documentos/addSacramentos'
 
 import Swal from "sweetalert2";
 
@@ -48,8 +48,8 @@ export default function PopUp(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [data, setData] = useState(defaultData)
     const finalRef = useRef()
-    const { Show } = useSelector((state) => state.adddocument)
-    const { Bautismo, Confirmacion, Matrimonio } = useSelector((state) => state.addsacramentos)
+    const { Show, DocumentInfo, VerYEditar } = useSelector((state) => state.adddocument)
+    const { Bautismo, Confirmacion, Matrimonio, Editar } = useSelector((state) => state.addsacramentos)
 
     const handleButtonPress = () => {
         const date = new Date()
@@ -76,73 +76,133 @@ export default function PopUp(props) {
         dispatch(onShowMatrimonio({ Show: true }))
     }
 
+    const EditandoDocumento = ()  => {
+        console.log("asdasdasd")
+        dispatch(onVerYEditar(true))
+    }
+
     const agregandoDocumento = async (event) => {
         event.preventDefault();
-        const structuredData = {
-            ...data,
-            Bautismo: Bautismo,
-            Confirmacion: Confirmacion,
-            Matrimonio: Matrimonio
-        }
-        console.log(structuredData)
-        const peticion = await iglesiaApi.post('/adddocument', structuredData)
-        console.log(peticion.data)
-        if(peticion.data.status == true)
+        if(!Editar)
         {
-            onClose()
-            Swal.fire(
-                'Añadido',
-                'El documento ha sido agregado al sistema.',
-                'success'
-            )
-            toast({
-                title: `Atención`,
-                description: 'Para reflejar los cambios debe recargar la página o volver a realizar la consulta',
-                status: "info",
-                isClosable: true,
-                duration: 10000,
-              })
+            const structuredData = {
+                ...data,
+                Bautismo: Bautismo,
+                Confirmacion: Confirmacion,
+                Matrimonio: Matrimonio
+            }
+            console.log(structuredData)
+            const peticion = await iglesiaApi.post('/adddocument', structuredData)
+            console.log(peticion.data)
+            if(peticion.data.status == true)
+            {
+                onClose()
+                Swal.fire(
+                    'Añadido',
+                    'El documento ha sido agregado al sistema.',
+                    'success'
+                )
+                toast({
+                    title: `Atención`,
+                    description: 'Para reflejar los cambios debe recargar la página o volver a realizar la consulta',
+                    status: "info",
+                    isClosable: true,
+                    duration: 10000,
+                  })
+            } else {
+                var mensaje = "";
+                if (peticion.data.msg == "document already exists")
+                {
+                    mensaje = "El documento ya está registrado en el sistema.";
+                }
+                if (peticion.data.msg == "name and lastname cant be blank")
+                {
+                    mensaje = "El Nombre y el Apellido no pueden estar en blanco.";
+                }
+                toast({
+                    title: `Error`,
+                    description: mensaje,
+                    status: "error",
+                    isClosable: true,
+                    duration: 10000,
+                  })
+            }
         } else {
-            var mensaje = "";
-            if (peticion.data.msg == "document already exists")
-            {
-                mensaje = "El documento ya está registrado en el sistema.";
+            const structuredData = {
+                ...data,
+                Bautismo: Bautismo,
+                Confirmacion: Confirmacion,
+                Matrimonio: Matrimonio
             }
-            if (peticion.data.msg == "name and lastname cant be blank")
+            console.log(structuredData)
+            const peticion = await iglesiaApi.post('/editdocument', structuredData)
+            console.log(peticion.data)
+            if(peticion.data.status == true)
             {
-                mensaje = "El Nombre y el Apellido no pueden estar en blanco.";
+                onClose()
+                Swal.fire(
+                    'Añadido',
+                    'El documento ha sido editado correctamente.',
+                    'success'
+                )
+                toast({
+                    title: `Atención`,
+                    description: 'Para reflejar los cambios debe recargar la página o volver a realizar la consulta',
+                    status: "info",
+                    isClosable: true,
+                    duration: 10000,
+                  })
+            } else {
+                var mensaje = "";
+                if (peticion.data.msg == "name and lastname cant be blank")
+                {
+                    mensaje = "El Nombre y el Apellido no pueden estar en blanco.";
+                }
+                toast({
+                    title: `Error`,
+                    description: mensaje,
+                    status: "error",
+                    isClosable: true,
+                    duration: 10000,
+                  })
             }
-            toast({
-                title: `Error`,
-                description: mensaje,
-                status: "error",
-                isClosable: true,
-                duration: 10000,
-              })
         }
+        
+    }
+
+    const handleClose = async (event)  => {
+        if (
+            (isOpen === false && Show.Show === true && disable === false) ||
+            (Show.Show === true && disable === true && isOpen === false)
+          ) {
+              dispatch(onAddDocument({ Show:false }))
+          }
+        
     }
 
     useEffect(() => {
         if (Show.Show == true && disable == false) {
-            setData(defaultData)
+            if(!Editar)
+            {
+                setData(defaultData)
+            } else {
+                setData(DocumentInfo)
+            }
             onOpen()
+            console.log(VerYEditar)
         }
       }, [Show.Show])
 
       useEffect(() => {
-        if (
-          (isOpen === false && Show.Show === true && disable === false) ||
-          (Show.Show === true && disable === true && isOpen === false)
-        ) {
-            dispatch(onAddDocument({ Show:false }))
-        }},[Show.Show])
+        handleClose()
+        },[Show.Show])
 
     return (
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Agregar Documento
+            {!VerYEditar ? (<Box>Ver Documento</Box>) : (<>{!Editar ? (<Box>Agregar Documento</Box>) : (<Box>Editar Documento</Box>)}</>)}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -187,24 +247,27 @@ export default function PopUp(props) {
                                 value={data.inscr_Date}
                                 onChange={handleInputText}
                             />
+                            {!VerYEditar ? (
+                            <></>) : (
                             <Button colorScheme="orange" variant="solid" onClick={handleButtonPress} >
                                 Colocar Fecha Actual
-                            </Button>
+                            </Button>)}
                         </HStack>
                     </Box>
                     <Box paddingBottom="1vw">
                         <Button colorScheme="orange" variant="solid" onClick={handleBautismo} >
-                            {!Bautismo.fecha ? (<Box>Añadir Bautismo</Box>) : (<Box>Editar Bautismo</Box>)}
+                        {!VerYEditar ? (<Box>Ver Bautismo</Box>) : (<>{!Bautismo.fecha ? (<Box>Añadir Bautismo</Box>) : (<Box>Editar Bautismo</Box>)}</>)}
+                            
                         </Button>
                     </Box>
                     <Box paddingBottom="1vw">
                         <Button colorScheme="orange" variant="solid" onClick={handleConfirmacion} >
-                            {!Confirmacion.fecha ? (<Box>Añadir Confirmación</Box>) : (<Box>Editar Confirmación</Box>)}
+                        {!VerYEditar ? (<Box>Ver Confirmación</Box>) : (<>{!Confirmacion.fecha ? (<Box>Añadir Confirmación</Box>) : (<Box>Editar Confirmación</Box>)}</>)}
                         </Button>
                     </Box>
                     <Box paddingBottom="1vw">
                         <Button colorScheme="orange" variant="solid" onClick={handleMatrimonio} >
-                            {!Matrimonio.fecha ? (<Box>Añadir Matrimonio</Box>) : (<Box>Editar Matrimonio</Box>)}
+                        {!VerYEditar ? (<Box>Ver Matrimonio</Box>) : (<>{!Matrimonio.fecha ? (<Box>Añadir Matrimonio</Box>) : (<Box>Editar Matrimonio</Box>)}</>)}
                         </Button>
                     </Box>
                     <Box paddingBottom="1vw">
@@ -214,6 +277,16 @@ export default function PopUp(props) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+            {!VerYEditar ? (
+                <Button
+                colorScheme="green"
+                variant="solid"
+                mr={3}
+                onClick={EditandoDocumento}
+                >
+                    Editar
+                </Button>
+                ) : (
                 <Button
                 colorScheme="orange"
                 backgroundColor="rgb(238, 152, 81)"
@@ -221,8 +294,9 @@ export default function PopUp(props) {
                 mr={3}
                 onClick={agregandoDocumento}
                 >
-                Agregar Documento
+                    {!Editar ? (<Box>Agregar Documento</Box>) : (<Box>Aplicar Cambios</Box>)}
                 </Button>
+                )}
                 <Button colorScheme="red" mr={3} onClick={onClose}>
                     Cerrar
                 </Button>

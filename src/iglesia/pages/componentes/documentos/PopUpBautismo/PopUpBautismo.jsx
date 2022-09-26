@@ -28,8 +28,8 @@ export default function PopUpBautismo(props) {
         padre: "",
         lugar: "",
     }
-    const { ShowBautismo, Bautismo } = useSelector((state) => state.addsacramentos)
-    const { Show } = useSelector((state) => state.adddocument)
+    const { ShowBautismo, Bautismo, Editar } = useSelector((state) => state.addsacramentos)
+    const { Show, VerYEditar } = useSelector((state) => state.adddocument)
     
     const dispatch = useDispatch()
     const disable = props.active
@@ -62,13 +62,18 @@ export default function PopUpBautismo(props) {
     useEffect(() => {
         if (ShowBautismo.Show == true && disable == false) {
             // setData(defaultData)
+            if(Editar)
+            {
+                setData(Bautismo)
+            }
             onOpen()
         }
       }, [ShowBautismo.Show])
 
     useEffect(() => {
-    if (Show.Show == false) {
+    if (Show.Show == false && Editar == false) {
         setData(defaultData)
+        dispatch(onAddBautismo(defaultData))
     }
     }, [Show.Show])
 
@@ -85,7 +90,7 @@ export default function PopUpBautismo(props) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Agregar Bautismo
+            {!VerYEditar ? (<Box>Ver Bautismo</Box>) : (<>{!Bautismo.fecha ? (<Box>Añadir Bautismo</Box>) : (<Box>Editar Bautismo</Box>)}</>)}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -110,9 +115,11 @@ export default function PopUpBautismo(props) {
                                 value={data.fecha}
                                 onChange={handleInputText}
                             />
+                            {!VerYEditar ? (
+                            <></>) : (
                             <Button colorScheme="orange" variant="solid" onClick={handleButtonPress} >
                                 Colocar Fecha Actual
-                            </Button>
+                            </Button>)}
                         </HStack>
                     </Box>
                     <Box paddingBottom="1vw">
@@ -126,6 +133,10 @@ export default function PopUpBautismo(props) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+            {!VerYEditar ? (
+                <Button colorScheme="green" mr={3} onClick={onClose}>
+                    Aceptar
+                </Button>) : (
                 <Button
                 colorScheme="orange"
                 backgroundColor="rgb(238, 152, 81)"
@@ -133,8 +144,9 @@ export default function PopUpBautismo(props) {
                 mr={3}
                 onClick={agregandoBautismo}
                 >
-                Agregar Bautismo
-                </Button>
+                {!Editar ? (<Box>Agregar Bautismo</Box>) : (<Box>Aplicar Cambios</Box>)}
+                </Button>)}
+                
                 <Button colorScheme="red" mr={3} onClick={onClose}>
                     Cerrar
                 </Button>

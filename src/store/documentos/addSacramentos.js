@@ -28,6 +28,7 @@ export const addSacramentos = createSlice({
             pareja: ""
         },
         ShowMatrimonio: false,
+        Editar: false,
     },
     reducers: {
         onAddBautismo: (state, {payload}) => {
@@ -48,7 +49,10 @@ export const addSacramentos = createSlice({
         onShowConfirmacion: (state, {payload}) => {
             state.ShowConfirmacion = payload;
         },
+        onEdit: (state, {payload}) => {
+            state.Editar = payload;
+        },
     }
 });
 // Action creators are generated for each case reducer function
-export const { onAddBautismo, onAddConfirmacion, onAddMatrimonio, onShowBautismo, onShowConfirmacion, onShowMatrimonio } = addSacramentos.actions;
+export const { onAddBautismo, onAddConfirmacion, onAddMatrimonio, onShowBautismo, onShowConfirmacion, onShowMatrimonio, onEdit } = addSacramentos.actions;

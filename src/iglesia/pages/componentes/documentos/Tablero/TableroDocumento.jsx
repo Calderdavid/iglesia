@@ -30,8 +30,11 @@ import iglesiaApi from '../../../../../api/iglesiaApi'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-export default function Tablero() {
+import { onAddBautismo, onAddConfirmacion, onAddMatrimonio, onEdit } from '../../../../../store/documentos/addSacramentos'
+import { onAddDocument, onEditDocument, onVerYEditar } from '../../../../../store/documentos/addDocument' 
 
+export default function Tablero() {
+    const dispatch = useDispatch()
     // variables de prueba
     
     /*const dataTable = {
@@ -80,6 +83,25 @@ export default function Tablero() {
     const AlertDeleteDocument= async (i)  => {
         setSelecteddocument(dataTable.Data[i])
     }
+
+    const ViewDocument= async (i)  => {
+        dispatch(onEditDocument({
+            _id: dataTable.Data[i]._id,
+            name: dataTable.Data[i].name,
+            lastname: dataTable.Data[i].lastname,
+            email: dataTable.Data[i].email,
+            phone: dataTable.Data[i].phone,
+            inscr_Date: dataTable.Data[i].inscr_Date,
+            Referencia: dataTable.Data[i].Referencia,
+        }))
+        dispatch(onAddBautismo(dataTable.Data[i].Bautismo))
+        dispatch(onAddConfirmacion(dataTable.Data[i].Confirmacion))
+        dispatch(onAddMatrimonio(dataTable.Data[i].Matrimonio))
+        dispatch(onEdit(true))
+        dispatch(onVerYEditar(false))
+        dispatch(onAddDocument({Show: true}))
+    }
+
     const handleRemoveItem = () => {
         const backup = dataTable.Data
         const secondBackup = []
@@ -105,30 +127,31 @@ export default function Tablero() {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, ¡Quiero Borrarlo!'
         }).then( async (result) => {
-
-            const {data} = await iglesiaApi.post('/deletdocument', selectedDocument)
-            console.log(data)
-            if (result.isConfirmed && data.status == true) {
-                Swal.fire(
-                    'Borrado',
-                    'El documento ha sido eliminado del sistema.',
-                    'success'
-                )
-                handleRemoveItem()
-            }
-            if (result.isConfirmed && data.status == false) {
-                Swal.fire(
-                    'Error',
-                    'No puedes borrar este documento.',
-                    'error'
-                )
-            }
-            if (result.isConfirmed && data.status == undefined) {
-                Swal.fire(
-                    'Error 500',
-                    'Porfavor Informe al administrador',
-                    'error'
-                )
+            if (result.isConfirmed)
+            {
+                const {data} = await iglesiaApi.post('/deletdocument', selectedDocument)
+                if (result.isConfirmed && data.status == true) {
+                    Swal.fire(
+                        'Borrado',
+                        'El documento ha sido eliminado del sistema.',
+                        'success'
+                    )
+                    handleRemoveItem()
+                }
+                if (result.isConfirmed && data.status == false) {
+                    Swal.fire(
+                        'Error',
+                        'No puedes borrar este documento.',
+                        'error'
+                    )
+                }
+                if (result.isConfirmed && data.status == undefined) {
+                    Swal.fire(
+                        'Error 500',
+                        'Porfavor Informe al administrador',
+                        'error'
+                    )
+                }
             }
         })
     }
@@ -182,7 +205,7 @@ export default function Tablero() {
                             </HStack>
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            <Box className={Styles.ver}>
+                            <Box className={Styles.ver} onClick={(event) => ViewDocument(i)}>
                                 <Image src={Ver} alt="Ver" w="1.5vw" />
                             </Box>
                         </Td>

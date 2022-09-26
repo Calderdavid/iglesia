@@ -97,29 +97,31 @@ export default function Tablero() {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, ¡Quiero Borrarlo!'
         }).then( async (result) => {
-
-            const {data} = await iglesiaApi.post('/deleteuser', selectedUser)
-            if (result.isConfirmed && data.status == true) {
-                Swal.fire(
-                    'Borrado',
-                    'El usuario ha sido eliminado del sistema.',
-                    'success'
-                )
-                handleRemoveItem()
-            }
-            if (result.isConfirmed && data.status == false) {
-                Swal.fire(
-                    'Error',
-                    'No puedes borrar a este usuario.',
-                    'error'
-                )
-            }
-            if (result.isConfirmed && data.status == undefined) {
-                Swal.fire(
-                    'Error 500',
-                    'Porfavor Informe al administrador',
-                    'error'
-                )
+            if (result.isConfirmed)
+            {
+                const {data} = await iglesiaApi.post('/deleteuser', selectedUser)
+                if (result.isConfirmed && data.status == true) {
+                    Swal.fire(
+                        'Borrado',
+                        'El usuario ha sido eliminado del sistema.',
+                        'success'
+                    )
+                    handleRemoveItem()
+                }
+                if (result.isConfirmed && data.status == false) {
+                    Swal.fire(
+                        'Error',
+                        'No puedes borrar a este usuario.',
+                        'error'
+                    )
+                }
+                if (result.isConfirmed && data.status == undefined) {
+                    Swal.fire(
+                        'Error 500',
+                        'Porfavor Informe al administrador',
+                        'error'
+                    )
+                }
             }
         })
     }

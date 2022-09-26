@@ -31,8 +31,8 @@ export default function PopUpMatrimonio(props) {
         lugar: "",
     }
 
-    const { ShowMatrimonio, Matrimonio } = useSelector((state) => state.addsacramentos)
-    const { Show } = useSelector((state) => state.adddocument)
+    const { ShowMatrimonio, Matrimonio, Editar } = useSelector((state) => state.addsacramentos)
+    const { Show, VerYEditar } = useSelector((state) => state.adddocument)
 
     const dispatch = useDispatch()
     const disable = props.active
@@ -64,13 +64,18 @@ export default function PopUpMatrimonio(props) {
     useEffect(() => {
         if (ShowMatrimonio.Show == true && disable == false) {
             // setData(defaultData)
+            if(Editar)
+            {
+                setData(Matrimonio)
+            }
             onOpen()
         }
       }, [ShowMatrimonio.Show])
 
     useEffect(() => {
-    if (Show.Show == false) {
+    if (Show.Show == false && Editar == false) {
         setData(defaultData)
+        dispatch(onAddMatrimonio(defaultData))
     }
     }, [Show.Show])
     
@@ -87,7 +92,7 @@ export default function PopUpMatrimonio(props) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Agregar Matrimonio
+            {!VerYEditar ? (<Box>Ver Matrimonio</Box>) : (<>{!Matrimonio.fecha ? (<Box>Añadir Matrimonio</Box>) : (<Box>Editar Matrimonio</Box>)}</>)}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -116,9 +121,11 @@ export default function PopUpMatrimonio(props) {
                                 value={data.fecha}
                                 onChange={handleInputText}
                             />
+                            {!VerYEditar ? (
+                            <></>) : (
                             <Button colorScheme="orange" variant="solid" onClick={handleButtonPress} >
                                 Colocar Fecha Actual
-                            </Button>
+                            </Button>)}
                         </HStack>
                     </Box>
                     <Box paddingBottom="1vw">
@@ -132,6 +139,10 @@ export default function PopUpMatrimonio(props) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+            {!VerYEditar ? (
+                <Button colorScheme="green" mr={3} onClick={onClose}>
+                    Aceptar
+                </Button>) : (
                 <Button
                 colorScheme="orange"
                 backgroundColor="rgb(238, 152, 81)"
@@ -139,8 +150,8 @@ export default function PopUpMatrimonio(props) {
                 mr={3}
                 onClick={agregandoMatrimonio}
                 >
-                Agregar Matrimonio
-                </Button>
+                {!Editar ? (<Box>Agregar Matrimonio</Box>) : (<Box>Aplicar Cambios</Box>)}
+                </Button>)}
                 <Button colorScheme="red" mr={3} onClick={onClose}>
                     Cerrar
                 </Button>

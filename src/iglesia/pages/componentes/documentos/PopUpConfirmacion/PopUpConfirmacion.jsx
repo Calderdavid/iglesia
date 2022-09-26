@@ -27,8 +27,8 @@ export default function PopUpConfirmacion(props) {
         lugar: "",
     }
 
-    const { ShowConfirmacion, Confirmacion } = useSelector((state) => state.addsacramentos)
-    const { Show } = useSelector((state) => state.adddocument)
+    const { ShowConfirmacion, Confirmacion, Editar } = useSelector((state) => state.addsacramentos)
+    const { Show, VerYEditar } = useSelector((state) => state.adddocument)
 
     const dispatch = useDispatch()
     const disable = props.active
@@ -60,13 +60,18 @@ export default function PopUpConfirmacion(props) {
     useEffect(() => {
         if (ShowConfirmacion.Show == true && disable == false) {
             // setData(defaultData)
+            if(Editar)
+            {
+                setData(Confirmacion)
+            }
             onOpen()
         }
       }, [ShowConfirmacion.Show])
 
     useEffect(() => {
-    if (Show.Show == false) {
+    if (Show.Show == false && Editar == false) {
         setData(defaultData)
+        dispatch(onAddConfirmacion(defaultData))
     }
     }, [Show.Show])
 
@@ -83,7 +88,7 @@ export default function PopUpConfirmacion(props) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-                Agregar Confirmacion
+            {!VerYEditar ? (<Box>Ver Confirmación</Box>) : (<>{!Confirmacion.fecha ? (<Box>Añadir Confirmación</Box>) : (<Box>Editar Confirmación</Box>)}</>)}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -108,9 +113,11 @@ export default function PopUpConfirmacion(props) {
                                 value={data.fecha}
                                 onChange={handleInputText}
                             />
+                            {!VerYEditar ? (
+                            <></>) : (
                             <Button colorScheme="orange" variant="solid" onClick={handleButtonPress} >
                                 Colocar Fecha Actual
-                            </Button>
+                            </Button>)}
                         </HStack>
                     </Box>
                     <Box paddingBottom="1vw">
@@ -124,6 +131,10 @@ export default function PopUpConfirmacion(props) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+            {!VerYEditar ? (
+                <Button colorScheme="green" mr={3} onClick={onClose}>
+                    Aceptar
+                </Button>) : (
                 <Button
                 colorScheme="orange"
                 backgroundColor="rgb(238, 152, 81)"
@@ -131,8 +142,9 @@ export default function PopUpConfirmacion(props) {
                 mr={3}
                 onClick={agregandoConfirmacion}
                 >
-                Agregar Confirmacion
+                {!Editar ? (<Box>Agregar Confirmacion</Box>) : (<Box>Aplicar Cambios</Box>)}
                 </Button>
+                )}
                 <Button colorScheme="red" mr={3} onClick={onClose}>
                     Cerrar
                 </Button>
