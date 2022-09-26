@@ -11,8 +11,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import Plus from '../../../../../assets/images/plus.png'
 
+import { onEdit } from "../../../../../store/documentos/addSacramentos";
 import { onActualizarDocumentos } from "../../../../../store/documentos/actualizardocumento";
-import { onAddDocument } from '../../../../../store/documentos/addDocument'
+import { onAddDocument, onVerYEditar } from '../../../../../store/documentos/addDocument'
 
 /*import { useForm } from '../../hooks/useForm'*/
 /*const llamarfiltrado = (event) => {
@@ -166,9 +167,10 @@ export default function BarraBusqueda() {
         setlistadesordenada(sortedList)
     },[])*/
 
-
     const addDocumento = async () => {
         dispatch(onAddDocument({Show: true}))
+        dispatch(onEdit(false))
+        dispatch(onVerYEditar(true))
     }  
     
     return(
