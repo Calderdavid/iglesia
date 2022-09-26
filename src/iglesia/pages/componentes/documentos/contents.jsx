@@ -2,6 +2,7 @@ import { Box, HStack } from '@chakra-ui/react'
 import BarraBusqueda from './barra_busqueda/BarraBusqueda'
 import Tablero from  './Tablero/TableroDocumento'
 import React from 'react';
+import PopUp from './PopUp/PopUp'
 
 export default function Contents() {
     return(
@@ -10,6 +11,7 @@ export default function Contents() {
                 <BarraBusqueda />
                 <Tablero />
             </Box>
+            <PopUp active={false} />
         </Box>
     )
 }

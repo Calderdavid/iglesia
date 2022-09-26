@@ -7,3 +7,17 @@
   .Select:focus{
     border-color: "rgb(112, 172, 181)";
   }
+  .ver{
+    background-color: #74CBAC;
+    padding: 0 0 0 .8vw;
+    display: flex;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 15px;
+    font-family: 'Raleway-bold';
+    background-color: rgb(238, 152, 81);
+    align-items: center;
+  }
+.Buscar{
+  font-size: 1vw;
+}

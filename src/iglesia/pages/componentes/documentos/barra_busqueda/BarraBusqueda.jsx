@@ -1,4 +1,4 @@
-import { Box, HStack, Input, Stack, VStack, FormControl,InputGroup,InputLeftElement,chakra, useEditable} from "@chakra-ui/react";
+import { Box, HStack, Input, Stack, VStack, Image, FormControl,InputGroup,InputLeftElement,chakra, useEditable} from "@chakra-ui/react";
 import Styles from './BarraBusqueda.module.scss'
 import Select from 'react-select'
 import { Button } from '@chakra-ui/react'
@@ -9,24 +9,38 @@ import iglesiaApi from '../../../../../api/iglesiaApi';
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
 
+import Plus from '../../../../../assets/images/plus.png'
+
 import { onActualizarDocumentos } from "../../../../../store/documentos/actualizardocumento";
+import { onAddDocument } from '../../../../../store/documentos/addDocument'
 
 /*import { useForm } from '../../hooks/useForm'*/
+/*const llamarfiltrado = (event) => {
+    event.preventDefault();
+    dispatch(onAddUser({ Show:true }))
+    }*/
 
 export default function BarraBusqueda() {
-    const [displaySelectButtonOne, setDisplaySelect] = useState(true)
-    const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
-    const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
     const dispatch = useDispatch()
     const options = [
         {value: 'NOMBRE', label: 'Nombre'},
         {value: 'APELLIDO', label: 'Apellido'},
         {value: 'FECHAINSCRIPCION', label: 'Fecha Inscripción'}
     ]
-    /*const llamarfiltrado = (event) => {
-    event.preventDefault();
-    dispatch(onAddUser({ Show:true }))
-    }*/
+    const dataConstruct = {
+        selectValue: "",
+        texto: ""
+    }
+
+    const [displaySelectButtonOne, setDisplaySelect] = useState(true)
+    const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
+    const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
+
+    const [data, setData] = useState(dataConstruct)
+
+    const [ListadoDocumento, setListaDocumento] = useState([])
+    
+    // checkbox usando botones
     const handleButtonOneOnPress = () => {
         setDisplaySelect(!displaySelectButtonOne)
     }
@@ -36,122 +50,90 @@ export default function BarraBusqueda() {
     const handleButtonThreeOnPress = () => {
         setDisplaySelectButtonThree(!displaySelectButtonThree)
     }
-    const [ListadoDocumento, setListaDocumento] = useState([])
-    const [ id, setId ] = useState('')
-    const [ nombre, setNombre ] = useState('')
-    const [ email, setemail ] = useState('')
-    const [ buscar, setBuscar ] = useState('')
-    const [ texto, setTexto ] = useState('')
-    const [ bandera, setBandera ] = useState(true)
-    
-    
+    const handleSelectValue = (event) => {
+        setData({
+            ...data,
+            selectValue: event.value
+        })
+    }
+    const handleInputChange = (event) => {
+        setData({
+            ...data,
+            texto: event.target.value
+        })
+    }
+
     useEffect(() => {
         // queremos que cada vez que ListadoDocumento se actualize, la funcion de abajo se ejecute
         dispatch(onActualizarDocumentos(ListadoDocumento))
 
     },[ListadoDocumento])
 
-    function filtrado (){
-        return ListadoDocumento.filter((documento) =>
-            documento.nombre.toLoweCase().indexof(buscar.toLowerCase()) >-1)
-    }
+    useEffect(() => {
+        setData({
+            ...data,
+            texto: ""
+        })
+    },[data.selectValue])
+
+    useEffect(() => {
+        getfiltro()
+    },[data.texto])
 
     const getfiltro = async () => {
-        //const res = await axios.get(URL+'/'+texto)
-        const peticion = await iglesiaApi.post('/getdocument', { texto: texto })
-        console.log(peticion.data.doc)
+        const peticion = await iglesiaApi.post('/getdocument', { texto: data.texto, selectedValue: data.selectValue })
         setListaDocumento(peticion.data.doc)
-        // dispatch(onActualizarDocumentos(peticion.doc))
-        // setDataTable({
-        //     ...dataTable,
-        //     Data: peticion.data.users
-        // })
-        
     }
 
-    const refresh = () =>{
-        getDocumentos()
-        setBuscar('')
-      }
-      
-    const buscando = () => {
-        setListaDocumento(filtrado())
-    }
-    
-    const getDocumentos = async () => {
-        // const res = await axios.get(URL) 
-        // console.log(res)
-        // setListaDocumento(res.data) 
-    }
-    
     const addDocumento = async () => {
-        let obj = { nombre, email } 
-        // const res = await  axios.post(iglesiaApi, obj) 
-        // console.log(res.data)
-        setNombre('')
-        setEdicion('')
+        dispatch(onAddDocument({Show: true}))
     }  
-    
-    const deleteDocumento = async (id) => {
-        // const res = await axios.delete(iglesiaApi+'/'+id)
-        // console.log(res.data)
-        // getDocumentos()
-    }
-    
-    const getDocumento = async (id) => {
-        // const res = await axios.get(iglesiaApi+'/obtener/'+id)
-        // setId(res.data._id)
-        // setNombre(res.data.nombre)
-        // setemail(res.data.email)
-        // setBandera(false)
-    }
-    
-    const AgregarActualizarDocumento = () => {
-        bandera? addDocumento() : update()   
-    }
-    
-    const update = async () => {
-        const obj = { id, nombre, email }
-        // const res = await axios.put(iglesiaApi, obj)
-        // console.log(res.data)
-        // setBandera(true)
-        // setNombre('')
-        // setemail('')
-        // getDocumentos()
-    }
+
     
     return(
-        <Box padding="1vw">
-            <Box  >
-                
+        <Box padding="1vw" className={Styles.Buscar} >
+            <HStack >
                 <VStack alignItems="start" marginLeft="1vw">
-                    <Box >
+                    <Box w="7vw">
                             Buscar Por:
                     </Box>
-
-                    <HStack >
-                        
+                    <HStack w="23vw">
                         <Box w="10vw">
-                            <Select 
-                            className={Styles.Select}
-                            options={options}
-                            
-                            //onChange={(event) => {}}
-                            />
-                            
+                            <Select
+                                value={undefined}
+                                className={Styles.Select}
+                                onChange={handleSelectValue}
+                                options={options}
+                                />
                         </Box > 
-                            <Input w="13vw" className="form-control mb-2"
+                            {!data.selectValue.match("FECHAINSCRIPCION") ? (
+                                <Input w="13vw" className="form-control mb-2"
                                 placeholder = "Ingresa el texto aquí..."
-                                
-                                value={texto}
-                                onChange={(e) => setTexto(e.target.value)}
-                                onKeyUp={getfiltro}
+                                backgroundColor={"white"}
+                                value={data.texto}
+                                onChange={handleInputChange}
                                 
                             />
-                            
-                        
-                        <Stack direction='row' spacing={4} align='center'>
-                            <Button colorScheme='teal' variant='outline' w="1vw" onClick={handleButtonOneOnPress}> 
+                                ) : ( 
+                                <Input w="13vw"
+                                backgroundColor={"white"}
+                                placeholder="Select Date and Time"
+                                type="date"
+                                size="md"
+                                value={data.texto}
+                                onChange={handleInputChange}
+                                />
+                                )
+                            }
+                    </HStack>
+                </VStack>
+                <VStack alignItems="start" marginLeft="1vw">
+                    <Box paddingLeft="1vw">
+                            ¿Qué Buscas?
+                    </Box>
+                    <HStack >
+                        <Stack direction='row' align='center' padding="0 1vw 0 1vw">
+                            <Button colorScheme='teal' variant='outline' w=".5vw" onClick={handleButtonOneOnPress}> 
                             {!displaySelectButtonOne ? (
                                 <CheckIcon color='black' />
                                 ) : <></>}
@@ -160,7 +142,7 @@ export default function BarraBusqueda() {
                                 Bautismo
                             </Box>
                         </Stack>
-                        <Stack direction='row' spacing={4} align='center'>
+                        <Stack direction='row' align='center' padding="0 1vw 0 1vw">
                             <Button colorScheme='teal' variant='outline' w="1vw" onClick={handleButtonTwoOnPress}> 
                             {!displaySelectButtonTwo ? (
                                 <CheckIcon color='black' />
@@ -171,7 +153,7 @@ export default function BarraBusqueda() {
                                 Confirmación
                             </Box>
                         </Stack>
-                        <Stack direction='row' spacing={4} align='center'>
+                        <Stack direction='row' align='center' padding="0 1vw 0 1vw">
                             <Button colorScheme='teal' variant='outline' w="1vw" onClick={handleButtonThreeOnPress}> 
                             {!displaySelectButtonThree ? (
                                 <CheckIcon color='black' />
@@ -180,16 +162,28 @@ export default function BarraBusqueda() {
                             <Box>
                                 Matrimonio
                             </Box>
-                            
                         </Stack>
-                        <Input w="13vw"
-                            placeholder="Select Date and Time"
-                            size="md"
-                            type="datetime-local"
-                            />
                     </HStack>
                 </VStack>
-            </Box>
+                <VStack alignItems="start" marginLeft="1vw">
+                    <Box>
+                        Ordenar por
+                    </Box>
+                    <Box w="10vw">
+                        <Select
+                            value={undefined}
+                            className={Styles.Select}
+                            onChange={handleSelectValue}
+                            options={options}
+                        />
+                    </Box>
+                </VStack>
+                <Box padding="1vw 0 0 1vw">
+                    <Box className={Styles.ver} onClick={addDocumento}>
+                        <Image src={Plus} alt="Ver" w="1.3vw" h="1.3vw" />
+                    </Box>
+                </Box>
+            </HStack >
         </Box>
     )
 }
