@@ -43,12 +43,15 @@ export default function BarraBusqueda() {
     // checkbox usando botones
     const handleButtonOneOnPress = () => {
         setDisplaySelect(!displaySelectButtonOne)
+        getfiltrobottonBautismoOffON()
     }
     const handleButtonTwoOnPress = () => {
         setDisplaySelectButtonTwo(!displaySelectButtonTwo)
+        getfiltrobottonMatrimonioOffON()
     }
     const handleButtonThreeOnPress = () => {
         setDisplaySelectButtonThree(!displaySelectButtonThree)
+        getfiltrobottonConfirmacionOffON()
     }
     const handleSelectValue = (event) => {
         setData({
@@ -62,6 +65,64 @@ export default function BarraBusqueda() {
             texto: event.target.value
         })
     }
+    const getfiltrobottonBautismoOn = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto: ""})
+        
+        setListaDocumento(peticion.data.Bautismo)
+        console.log(peticion.data.Bautismo)
+    }
+    const getfiltrobottonBautismoOff = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto:""})
+        setListaDocumento(peticion.data.doc)
+
+    }
+    const getfiltrobottonBautismoOffON = async () => {
+        let contador = 2
+        console.log(contador)
+        {!displaySelectButtonOne ? (
+        contador =2 ): (contador = 1)}
+        {(contador !=2) ? (getfiltrobottonBautismoOn()): (getfiltrobottonBautismoOff())}
+        console.log(contador)
+    }
+    const getfiltrobottonMatrimonioOn = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto: ""})
+        
+        setListaDocumento(peticion.data.Matrimonio)
+        console.log(peticion.data.Matrimonio)
+    }
+    const getfiltrobottonMatrimonioOff = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto:""})
+        setListaDocumento(peticion.data.doc)
+
+    }
+    const getfiltrobottonMatrimonioOffON = async () => {
+        let contador = 2
+        
+        {!displaySelectButtonTwo ? (
+        contador =2 ): (contador = 1)}
+        {(contador !=2) ? (getfiltrobottonMatrimonioOn()): (getfiltrobottonMatrimonioOff())}
+        
+    }
+    const getfiltrobottonConfirmacionOn = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto: ""})
+        
+        setListaDocumento(peticion.data.Confirmacion)
+        console.log(peticion.data.Confirmacion)
+    }
+    const getfiltrobottonConfirmacionOff = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto:""})
+        setListaDocumento(peticion.data.doc)
+
+    }
+    const getfiltrobottonConfirmacionOffON = async () => {
+        let contador = 2
+        console.log(contador)
+        {!displaySelectButtonThree ? (
+        contador =2 ): (contador = 1)}
+        {(contador !=2) ? (getfiltrobottonConfirmacionOn()): (getfiltrobottonConfirmacionOff())}
+        console.log(contador)
+    }
+
 
     useEffect(() => {
         // queremos que cada vez que ListadoDocumento se actualize, la funcion de abajo se ejecute
