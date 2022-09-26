@@ -106,7 +106,8 @@ export default function Tablero() {
             confirmButtonText: 'Si, ¡Quiero Borrarlo!'
         }).then( async (result) => {
 
-            const {data} = await iglesiaApi.post('/deletedoc', selectedDocument)
+            const {data} = await iglesiaApi.post('/deletdocument', selectedDocument)
+            console.log(data)
             if (result.isConfirmed && data.status == true) {
                 Swal.fire(
                     'Borrado',
