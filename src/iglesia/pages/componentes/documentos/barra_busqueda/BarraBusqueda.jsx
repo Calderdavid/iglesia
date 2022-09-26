@@ -35,10 +35,11 @@ export default function BarraBusqueda() {
     const [displaySelectButtonOne, setDisplaySelect] = useState(true)
     const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
     const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
-
+    let [eleccion, setEleccion] = useState()
     const [data, setData] = useState(dataConstruct)
 
     const [ListadoDocumento, setListaDocumento] = useState([])
+    const [listaDesordenada, setlistadesordenada]= useState([])
     
     // checkbox usando botones
     const handleButtonOneOnPress = () => {
@@ -58,7 +59,11 @@ export default function BarraBusqueda() {
             ...data,
             selectValue: event.value
         })
+        setEleccion= event.value
+        console.log(setEleccion)
+        Ordenado(setEleccion)
     }
+
     const handleInputChange = (event) => {
         setData({
             ...data,
@@ -145,6 +150,22 @@ export default function BarraBusqueda() {
         const peticion = await iglesiaApi.post('/getdocument', { texto: data.texto, selectedValue: data.selectValue })
         setListaDocumento(peticion.data.doc)
     }
+    const Ordenado = async (req) => {
+        const listaDesordenada = await iglesiaApi.post('/getdocument', { texto: data.texto, selectedValue: data.selectValue})
+        const eleccion = req.body
+        if(eleccion === "NOMBRE"){
+            listaDesordenada.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0))
+            console.log(listaDesordenada)
+            setListaDocumento(listaDesordenada)
+        }   
+    }
+
+
+    /*useEffect(() =>{
+        const sortedList = [...listaDesordenada].sort((a,b) => (a>b ? 1 : a < b ? -1 :0))
+        setlistadesordenada(sortedList)
+    },[])*/
+
 
     const addDocumento = async () => {
         dispatch(onAddDocument({Show: true}))
@@ -235,6 +256,7 @@ export default function BarraBusqueda() {
                             className={Styles.Select}
                             onChange={handleSelectValue}
                             options={options}
+                            
                         />
                     </Box>
                 </VStack>
