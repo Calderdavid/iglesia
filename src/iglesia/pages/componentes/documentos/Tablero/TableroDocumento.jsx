@@ -174,11 +174,14 @@ export default function Tablero() {
                             {data.name} {data.lastname}
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            {data.fecha_inscripcion}
-                            27 septiembre 2022
+                            {data.inscr_Date}
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            
+                        <HStack spacing="12%" justifyContent="center">
+                                {(data.Bautismo != "" ) ? ( <Image src={bautismo_black} alt="Ver" w="1.5vw" />): ( <Image src={bautismo_white} alt="Borrar" w="1.4vw" />)}
+                                {(data.Confirmacion != "" ) ? ( <Image src={confirmacion_black} alt="Ver" w="1.5vw" />): ( <Image src={confirmacion_white} alt="Borrar" w="1.4vw" />)}
+                                {(data.Matrimonio != "" ) ? ( <Image src={matrimonio_black} alt="Ver" w="1.5vw" />): ( <Image src={matrimonio_white} alt="Borrar" w="1.4vw" />)}*/
+                            </HStack>
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                             <Box className={Styles.ver}>
