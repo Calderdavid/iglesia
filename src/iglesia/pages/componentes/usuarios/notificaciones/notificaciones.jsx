@@ -2,7 +2,7 @@ import { Box, VStack, HStack, Link, Image, Flex } from '@chakra-ui/react'
 import permisos from '../../../../../assets/images/permisos.png'
 import alerta from '../../../../../assets/images/warning.png'
 import unused from '../../../../../assets/images/unused_black.png'
-
+import { useState } from 'react'
 import Styles from './notificaciones.module.scss'
 
 export default function Notificaciones() {
