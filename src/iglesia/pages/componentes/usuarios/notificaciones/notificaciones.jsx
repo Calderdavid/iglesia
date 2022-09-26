@@ -6,7 +6,10 @@ import unused from '../../../../../assets/images/unused_black.png'
 import Styles from './notificaciones.module.scss'
 
 export default function Notificaciones() {
-    return(
+    const [dataTable, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Correo Electrónico", "Última conexión", "Ver", "Eliminar"],
+    Data: []})
+    
+     return(
         <Box>
             <Box paddingLeft="5vw" fontSize="2.5vw" paddingBottom="4vw" justifyContent="space-around">
                 Iglesia Santo Toribio
