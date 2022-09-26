@@ -3,6 +3,9 @@ import BarraBusqueda from './barra_busqueda/BarraBusqueda'
 import Tablero from  './Tablero/TableroDocumento'
 import React from 'react';
 import PopUp from './PopUp/PopUp'
+import PopUpBautismo from './PopUpBautismo/PopUpBautismo';
+import PopUpConfirmacion from './PopUpConfirmacion/PopUpConfirmacion';
+import PopUpMatrimonio from './PopUpMatrimonio/PopUpMatrimonio';
 
 export default function Contents() {
     return(
@@ -11,6 +14,9 @@ export default function Contents() {
                 <BarraBusqueda />
                 <Tablero />
             </Box>
+            <PopUpBautismo active={false} />
+            <PopUpMatrimonio active={false} />
+            <PopUpConfirmacion active={false} />
             <PopUp active={false} />
         </Box>
     )

@@ -88,7 +88,6 @@ export default function BarraBusqueda() {
     const addDocumento = async () => {
         dispatch(onAddDocument({Show: true}))
     }  
-
     
     return(
         <Box padding="1vw" className={Styles.Buscar} >

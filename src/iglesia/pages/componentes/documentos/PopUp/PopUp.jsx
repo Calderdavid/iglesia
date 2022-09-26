@@ -16,45 +16,47 @@ import {
     NumberInput,
     NumberInputField,
     HStack,
-    useToast
+    useToast,
+    VStack
   } from '@chakra-ui/react'
 import { PhoneIcon, AtSignIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import Select from 'react-select'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { onAddDocument } from '../../../../../store/documentos/addDocument'
+import { onShowMatrimonio, onShowBautismo, onShowConfirmacion } from '../../../../../store/documentos/addSacramentos'
+
 import Swal from "sweetalert2";
 
 import iglesiaApi from '../../../../../api/iglesiaApi';
 import Styles from './PopUp.module.scss'
 
 export default function PopUp(props) {
-    const options = [
-        {value: '*', label: '*'},
-        {value: 'SECRETARIA', label: 'Secretario/a'},
-        {value: 'FELIGRES', label: 'Feligrés'},
-        {value: 'NINGUNO', label: 'Sin Rol'}
-    ]
     const defaultData = {
         name: "",
         lastname: "",
         email: "",
-        password: "",
         phone: "",
-        rol: "NINGUNO"
+        inscr_Date: "",
+        Referencia: "",
     }
+
     const toast = useToast()
     const dispatch = useDispatch()
     const disable = props.active
-    const [displayPassword, setDisplayPassword] = useState(false)
-    const [passText, setPassText] = useState("password")
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [data, setData] = useState(defaultData)
     const finalRef = useRef()
     const { Show } = useSelector((state) => state.adddocument)
+    const { Bautismo, Confirmacion, Matrimonio } = useSelector((state) => state.addsacramentos)
 
     const handleButtonPress = () => {
-        setDisplayPassword(!displayPassword)
+        const date = new Date()
+        setData({
+            ...data,
+            inscr_Date: date.toISOString().split('T')[0],
+        })
     }
 
     const handleInputText = (event) => {
@@ -63,24 +65,34 @@ export default function PopUp(props) {
             [event.target.name]: event.target.value,
         })
     }
-    const handleChange = (opcion) => {
-        setData({
-            ...data,
-            rol: opcion.value,
-        })
+
+    const handleBautismo = ()  => {
+        dispatch(onShowBautismo({ Show: true }))
+    }
+    const handleConfirmacion = ()  => {
+        dispatch(onShowConfirmacion({ Show: true }))
+    }
+    const handleMatrimonio = ()  => {
+        dispatch(onShowMatrimonio({ Show: true }))
     }
 
-    const agregandoUsuario = async (event) => {
+    const agregandoDocumento = async (event) => {
         event.preventDefault();
-        console.log(data)
-        const peticion = await iglesiaApi.post('/register', data)
+        const structuredData = {
+            ...data,
+            Bautismo: Bautismo,
+            Confirmacion: Confirmacion,
+            Matrimonio: Matrimonio
+        }
+        console.log(structuredData)
+        const peticion = await iglesiaApi.post('/adddocument', structuredData)
         console.log(peticion.data)
         if(peticion.data.status == true)
         {
             onClose()
             Swal.fire(
                 'Añadido',
-                'El usuario ha sido agregado al sistema.',
+                'El documento ha sido agregado al sistema.',
                 'success'
             )
             toast({
@@ -109,15 +121,6 @@ export default function PopUp(props) {
               })
         }
     }
-
-    useEffect(() => {
-        if(displayPassword == true)
-        {
-            setPassText("text")
-        } else {
-            setPassText("password")
-        }
-    },[displayPassword])
 
     useEffect(() => {
         if (Show.Show == true && disable == false) {
@@ -180,46 +183,33 @@ export default function PopUp(props) {
                                 placeholder="Select Date and Time"
                                 type="date"
                                 size="md"
-                                value={data.texto}
+                                name="inscr_Date"
+                                value={data.inscr_Date}
                                 onChange={handleInputText}
                             />
-                            <Button colorScheme="orange" variant="solid" onClick={handleInputText} >
-                            {!displayPassword ? (
-                                <ViewIcon color='black' />
-                                ) : <ViewOffIcon color='black' />}
+                            <Button colorScheme="orange" variant="solid" onClick={handleButtonPress} >
+                                Colocar Fecha Actual
                             </Button>
                         </HStack>
                     </Box>
                     <Box paddingBottom="1vw">
-                        Bautismo
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <AtSignIcon color='rgb(238, 152, 81)' />
-                            </InputLeftElement>
-                            <Input type='email' name="email" value={data.email} onChange={handleInputText}/>
-                        </InputGroup>
+                        <Button colorScheme="orange" variant="solid" onClick={handleBautismo} >
+                            {!Bautismo.fecha ? (<Box>Añadir Bautismo</Box>) : (<Box>Editar Bautismo</Box>)}
+                        </Button>
                     </Box>
                     <Box paddingBottom="1vw">
-                        Confirmación
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <AtSignIcon color='rgb(238, 152, 81)' />
-                            </InputLeftElement>
-                            <Input type='email' name="email" value={data.email} onChange={handleInputText}/>
-                        </InputGroup>
+                        <Button colorScheme="orange" variant="solid" onClick={handleConfirmacion} >
+                            {!Confirmacion.fecha ? (<Box>Añadir Confirmación</Box>) : (<Box>Editar Confirmación</Box>)}
+                        </Button>
                     </Box>
                     <Box paddingBottom="1vw">
-                        Matrimonio
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <AtSignIcon color='rgb(238, 152, 81)' />
-                            </InputLeftElement>
-                            <Input type='email' name="email" value={data.email} onChange={handleInputText}/>
-                        </InputGroup>
+                        <Button colorScheme="orange" variant="solid" onClick={handleMatrimonio} >
+                            {!Matrimonio.fecha ? (<Box>Añadir Matrimonio</Box>) : (<Box>Editar Matrimonio</Box>)}
+                        </Button>
                     </Box>
                     <Box paddingBottom="1vw">
                         Referencia
-                        <Input type='email' name="email" value={data.email} onChange={handleInputText}/>
+                        <Input name="Referencia" value={data.Referencia} onChange={handleInputText}/>
                     </Box>
                 </Box>
             </ModalBody>
@@ -229,7 +219,7 @@ export default function PopUp(props) {
                 backgroundColor="rgb(238, 152, 81)"
                 variant="solid"
                 mr={3}
-                onClick={agregandoUsuario}
+                onClick={agregandoDocumento}
                 >
                 Agregar Documento
                 </Button>
