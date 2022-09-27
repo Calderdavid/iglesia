@@ -34,13 +34,13 @@ export default function BarraBusqueda() {
     }
 
     const convertirFecha = (fechaString) => {
-        let fechaSp= fechaString.split("/");
+        let fechaSp= fechaString.split("-");
         let anio = new Date().getFullYear();
         if(fechaSp.length ==3){
-            anio = fechaSp[2];
+            anio = fechaSp[0];
         }
-        let mes = fechaSp[1]-1
-        let dia = fechaSp[0];
+        let mes = fechaSp[2]-1
+        let dia = fechaSp[2];
         return new Date(anio,mes,dia);
     }
 
