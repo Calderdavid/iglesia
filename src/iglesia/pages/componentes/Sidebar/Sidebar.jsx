@@ -10,8 +10,11 @@ import users_black from "../../../../assets/images/users_black.png"
 import users_white from "../../../../assets/images/users_white.png"
 import logout from "../../../../assets/images/logout.svg"
 import logo from "../../../../assets/images/logo.png"
+import { useAuthStore } from '../../../../hooks/usAuthStore'
 
 export default function Sidebar(props) {
+  const {startLogout}=useAuthStore();
+  
   const LinkItems = [
     { name: 'Tablero Principal', icon: dashboard_black, ref: '/', class: Styles.topics },
     {
@@ -63,10 +66,11 @@ export default function Sidebar(props) {
               <Flex
                 alignContent="center"
                 className={Styles.logout}
-                onClick={(event) => {
-                  event.preventDefault()
-                  UseAuth.signOut()
-                }}
+                onClick={
+                  //event.preventDefault()
+                  //UseAuth.signOut()
+                  startLogout
+                }
               >
                 <Image
                   src={logout}
