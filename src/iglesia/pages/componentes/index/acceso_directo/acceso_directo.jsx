@@ -4,7 +4,14 @@ import unused from '../../../../../assets/images/unused_black.png'
 import {FaFacebook, FaYoutube} from "react-icons/fa"
 import { useState } from "react";
 import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { useDispatch } from 'react-redux'
+
+import { onAddDocument, onVerYEditar } from '../../../../../store/documentos/addDocument';
+import { onEdit } from '../../../../../store/documentos/addSacramentos';
+
 export default function AccesoDirecto(){
+    const dispatch = useDispatch()
+
     const [displayRedirecButtonFA, setDisplaySelect] = useState(false)
     const handleButtonOneOnPress = () => {
         setDisplaySelect(displayRedirecButtonFA)
@@ -13,13 +20,19 @@ export default function AccesoDirecto(){
     const handleButtoTwoOnPress = () => {
         setDisplaySelect(displayRedirecButtonYOU)
     }
+    const addDocumento = async () => {
+        dispatch(onAddDocument({Show: true}))
+        dispatch(onEdit(false))
+        dispatch(onVerYEditar(true))
+    } 
+
     return(
         <Box>
             <Box className={Styles.texto}>
                 Accesos Directos
             </Box>
             <VStack spacing="2%">
-                <Link href="/">
+                <Link onClick={addDocumento}>
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
                             <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />

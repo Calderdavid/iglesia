@@ -4,6 +4,11 @@ import Styles from './contents.module.scss'
 import Calendario from './calendario/calendario.jsx'
 import AccesoDirecto from './acceso_directo/acceso_directo.jsx'
 
+import PopUpBautismo from '../documentos/PopUpBautismo/PopUpBautismo.jsx'
+import PopUpConfirmacion from '../documentos/PopUpConfirmacion/PopUpConfirmacion.jsx'
+import PopUpMatrimonio from '../documentos/PopUpMatrimonio/PopUpMatrimonio.jsx'
+import PopUp from '../documentos/PopUp/PopUp.jsx'
+
 export default function Contents() {
     return(
         <Box paddingLeft="18vw" paddingTop="3vw">
@@ -16,6 +21,10 @@ export default function Contents() {
                     <Calendario />
                 </Box>
             </HStack>
+            <PopUpBautismo active={false} />
+            <PopUpMatrimonio active={false} />
+            <PopUpConfirmacion active={false} />
+            <PopUp active={false} />
         </Box>
     )
 }
