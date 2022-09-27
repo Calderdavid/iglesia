@@ -25,18 +25,30 @@ export default function BarraBusqueda() {
     const dispatch = useDispatch()
     const options = [
         {value: 'NOMBRE', label: 'Nombre'},
-        {value: 'APELLIDO', label: 'Apellido'},
-        {value: 'FECHAINSCRIPCION', label: 'Fecha Inscripción'}
+        {value: 'MAS ANTIGUO', label: 'Mas Antiguo'},
+        {value: 'MAS RECIENTE', label: 'Mas Reciente'}
     ]
     const dataConstruct = {
         selectValue: "",
         texto: ""
     }
 
+    const convertirFecha = (fechaString) => {
+        let fechaSp= fechaString.split("/");
+        let anio = new Date().getFullYear();
+        if(fechaSp.length ==3){
+            anio = fechaSp[2];
+        }
+        let mes = fechaSp[1]-1
+        let dia = fechaSp[0];
+        return new Date(anio,mes,dia);
+    }
+
+
     const [displaySelectButtonOne, setDisplaySelect] = useState(true)
     const [displaySelectButtonTwo, setDisplaySelectButtonTwo] = useState(true)
     const [displaySelectButtonThree, setDisplaySelectButtonThree] = useState(true)
-    let [eleccion, setEleccion] = useState()
+    const [Eleccion, setEleccion] = useState()
     const [data, setData] = useState(dataConstruct)
 
     const [ListadoDocumento, setListaDocumento] = useState([])
@@ -55,15 +67,21 @@ export default function BarraBusqueda() {
         setDisplaySelectButtonThree(!displaySelectButtonThree)
         getfiltrobottonConfirmacionOffON()
     }
+
+
     const handleSelectValue = (event) => {
         setData({
             ...data,
             selectValue: event.value
         })
-        setEleccion= event.value
-        console.log(setEleccion)
-        Ordenado(setEleccion)
+        setEleccion(event.value)
+        
     }
+
+    useEffect(() => {
+        // cada vez que eleccion se ejecute la funcion de abajo se ejecuta
+        Ordenado()
+    },[Eleccion])
 
     const handleInputChange = (event) => {
         setData({
@@ -77,6 +95,7 @@ export default function BarraBusqueda() {
         setListaDocumento(peticion.data.Bautismo)
         console.log(peticion.data.Bautismo)
     }
+
     const getfiltrobottonBautismoOff = async () => {
         const peticion = await iglesiaApi.post('/getdocument', { texto:""})
         setListaDocumento(peticion.data.doc)
@@ -151,14 +170,46 @@ export default function BarraBusqueda() {
         const peticion = await iglesiaApi.post('/getdocument', { texto: data.texto, selectedValue: data.selectValue })
         setListaDocumento(peticion.data.doc)
     }
-    const Ordenado = async (req) => {
-        const listaDesordenada = await iglesiaApi.post('/getdocument', { texto: data.texto, selectedValue: data.selectValue})
-        const eleccion = req.body
+    
+    
+    
+    const Ordenado = async () => {
+        const peticion = await iglesiaApi.post('/getdocument', { texto: data.texto, selectedValue: data.selectValue})
+        
+        setlistadesordenada(peticion.data.doc)
+
+        const eleccion = Eleccion
+        //console.log(eleccion)
         if(eleccion === "NOMBRE"){
-            listaDesordenada.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0))
+
+            listaDesordenada.sort((a, b) => {
+                if(a.name >b.name){
+                    return 1;
+                }
+                if(a.name < b.name){
+                    return -1;
+                }
+                return 0;
+
+            });
+        }  
+        if(eleccion === "MAS ANTIGUO"){
+           
+            listaDesordenada.sort((a, b) => {
+                return convertirFecha(a.inscr_Date)-convertirFecha(b.inscr_Date);
+            });
+        
+        };
+        
+        if(eleccion === "MAS RECIENTE"){
+            
+            listaDesordenada.sort((a, b) => {
+                return convertirFecha(b.inscr_Date)-convertirFecha(a.inscr_Date);
+            });
+        }
+        
             console.log(listaDesordenada)
-            setListaDocumento(listaDesordenada)
-        }   
+            setListaDocumento(listaDesordenada) 
     }
 
 
