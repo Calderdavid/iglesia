@@ -284,7 +284,7 @@ export default function BarraBusqueda() {
                             </Button>
                             
                             <Box>
-                                Confirmación
+                                Matrimonio
                             </Box>
                         </Stack>
                         <Stack direction='row' align='center' padding="0 1vw 0 1vw">
@@ -294,7 +294,7 @@ export default function BarraBusqueda() {
                                 ) : <></>}
                             </Button>
                             <Box>
-                                Matrimonio
+                                Confirmacion
                             </Box>
                         </Stack>
                     </HStack>
