@@ -11,17 +11,12 @@ import {
     Box,
     Spinner,
     Input,
-    InputGroup,
-    InputLeftElement,
-    NumberInput,
-    NumberInputField,
     HStack,
     useToast,
     VStack,
     Textarea,
-    Divider,
   } from '@chakra-ui/react'
-import { PhoneIcon, AtSignIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+
 import Select from 'react-select'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -31,7 +26,6 @@ import { onShowMatrimonio, onShowBautismo, onShowConfirmacion, onAddBautismo, on
 import Swal from "sweetalert2";
 
 import iglesiaApi from '../../../../../api/iglesiaApi';
-import Styles from './PopUp.module.scss'
 
 export default function PopUp(props) {
     const defaultData = {
@@ -198,7 +192,6 @@ export default function PopUp(props) {
     }
 
     const EditandoDocumento = ()  => {
-        console.log("asdasdasd")
         dispatch(onVerYEditar(true))
     }
 
@@ -206,9 +199,7 @@ export default function PopUp(props) {
         event.preventDefault();
         if(!Editar)
         {
-            console.log(data)
             const peticion = await iglesiaApi.post('/adddocument', data)
-            console.log(peticion.data)
             if(peticion.data.status == true)
             {
                 onClose()
@@ -243,9 +234,7 @@ export default function PopUp(props) {
                   })
             }
         } else {
-            console.log(data)
             const peticion = await iglesiaApi.post('/editdocument', data)
-            console.log(peticion.data)
             if(peticion.data.status == true)
             {
                 onClose()
@@ -292,7 +281,6 @@ export default function PopUp(props) {
 
     const handleLoadingEvent = async (event) => {
         const peticion = await iglesiaApi.post('/getadjacentdocuments', DocumentInfo)
-        console.log(peticion)
         const structuredData = {
             ...DocumentInfo,
             parent_Data: {
@@ -322,7 +310,6 @@ export default function PopUp(props) {
                 handleLoadingEvent()
             }
             onOpen()
-            console.log(VerYEditar)
         }
       }, [Show.Show])
 

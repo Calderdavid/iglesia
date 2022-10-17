@@ -22,7 +22,7 @@ import { onShowBautismo } from '../../../../../store/documentos/addSacramentos'
 
 export default function PopUpBautismo(props) {
     const { ShowBautismo, Editar } = useSelector((state) => state.addsacramentos)
-    const { Show, DocumentInfo, VerYEditar } = useSelector((state) => state.adddocument)
+    const { DocumentInfo, VerYEditar } = useSelector((state) => state.adddocument)
     
     const dispatch = useDispatch()
     const disable = props.active

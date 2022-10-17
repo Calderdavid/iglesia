@@ -72,9 +72,7 @@ export default function PopUp(props) {
 
     const agregandoUsuario = async (event) => {
         event.preventDefault();
-        console.log(data)
         const peticion = await iglesiaApi.post('/register', data)
-        console.log(peticion.data)
         if(peticion.data.status == true)
         {
             onClose()

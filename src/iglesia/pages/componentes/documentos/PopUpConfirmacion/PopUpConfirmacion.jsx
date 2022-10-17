@@ -13,12 +13,12 @@ import {
     HStack,
     VStack
   } from '@chakra-ui/react'
+
 import Select from 'react-select'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { onEditDocument } from '../../../../../store/documentos/addDocument'
 import { onShowConfirmacion } from '../../../../../store/documentos/addSacramentos'
-import Styles from './PopUp.module.scss'
 
 export default function PopUpConfirmacion(props) {
     const options = [
@@ -27,28 +27,13 @@ export default function PopUpConfirmacion(props) {
         {value: 'CAPILLA_PARROQUIAL', label: 'Capilla Parroquial'}
     ]
     const { ShowConfirmacion, Editar } = useSelector((state) => state.addsacramentos)
-    const { Show, DocumentInfo, VerYEditar } = useSelector((state) => state.adddocument)
+    const { DocumentInfo, VerYEditar } = useSelector((state) => state.adddocument)
 
     const dispatch = useDispatch()
     const disable = props.active
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [data, setData] = useState(DocumentInfo)
     const finalRef = useRef()
-
-    const handleButtonPress = () => {
-        const date = new Date()
-        setData({
-            ...data,
-            fecha: date.toISOString().split('T')[0],
-        })
-    }
-
-    const handleInputText = (event) => {
-        setData({
-            ...data,
-            [event.target.name]: event.target.value,
-        })
-    }
 
     const handleSelectValue = (event) => {
         setData({
@@ -88,20 +73,10 @@ export default function PopUpConfirmacion(props) {
 
     useEffect(() => {
         if (ShowConfirmacion.Show == true && disable == false) {
-            // setData(defaultData)
-            // if(Editar)
-            // {
             setData(DocumentInfo)
-            // }
             onOpen()
         }
       }, [ShowConfirmacion.Show])
-
-    // useEffect(() => {
-    // if (Show.Show == false && Editar == false) {
-    //     setData(defaultData)
-    // }
-    // }, [Show.Show])
 
     useEffect(() => {
     if (

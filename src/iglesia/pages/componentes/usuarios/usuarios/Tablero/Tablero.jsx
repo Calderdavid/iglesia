@@ -60,7 +60,6 @@ export default function Tablero() {
 
     const getFirstUsers = async () => {
         const peticion = await iglesiaApi.post('/getusers', {search: "default", buscar: ""})
-        console.log(peticion.data.users)
         setDataTable({
             ...dataTable,
             Data: peticion.data.users
