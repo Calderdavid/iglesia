@@ -311,21 +311,43 @@ export default function PopUp(props) {
             }
             onOpen()
         }
-      }, [Show.Show])
+    }, [Show.Show])
 
-      useEffect(() => {
+    useEffect(() => {
         handleClose()
-        },[Show.Show])
+    },[Show.Show])
 
+    const [windowSize, setWindowSize] = useState(getWindowSize());
+
+    function getWindowSize() {
+        const {innerWidth, innerHeight} = window;
+        return {innerWidth, innerHeight};
+    }
+
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowSize(getWindowSize());
+        }
+    
+        window.addEventListener('resize', handleWindowResize);
+    
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log(windowSize)
+    },[windowSize])
 
     useEffect(() => {
         setData(DocumentInfo)
-        },[DocumentInfo])
+    },[DocumentInfo])
     
     return (
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" >
         <ModalOverlay />
-        <ModalContent maxH="400vw" maxW="64vw">
+        <ModalContent maxH="400vw" maxW={(windowSize.innerWidth <= 1596 ? "68vw" : "58vw")}>
             <ModalHeader>
             {!VerYEditar ? (<Box>Ver Documento</Box>) : (<>{!Editar ? (<Box>Agregar Documento</Box>) : (<Box>Editar Documento</Box>)}</>)}
             </ModalHeader>
@@ -374,12 +396,12 @@ export default function PopUp(props) {
                             </HStack>
                         </VStack>
                     </Box>
-                    <Box h="30vw" w="1px" backgroundColor="gray">
+                    <Box h="30vw" w="1px" marginLeft="100vw" backgroundColor="gray">
 
                     </Box>
-                    <Box >
+                    <Box w={(windowSize.innerWidth <= 1596 ? "45vw" : "35vw")} >
                         <HStack>
-                            <Box >
+                            <Box w="3vw">
                                 En la
                             </Box >
                             <Box w="12vw" borderColor="black" border="1px" borderRadius="5px">
@@ -390,14 +412,14 @@ export default function PopUp(props) {
                                     readOnly={!VerYEditar}
                                     />
                             </Box>
-                            <Box >
+                            <Box w="15vw">
                                 <Input name="b_place2" borderColor="black" placeholder="Santo Toribio" value={data.Bautismo.b_place2} readOnly={!VerYEditar} onChange={handleBaptismInputText}/>
                             </Box>
                             <Box >
                                 el
                             </Box>
                             <Box >
-                                <Input w="10vw"
+                                <Input w="12vw"
                                     borderColor="black"
                                     placeholder="Select Date and Time"
                                     type="date"
@@ -410,10 +432,10 @@ export default function PopUp(props) {
                             </Box>
                         </HStack>
                         <HStack paddingTop="1vw">
-                            <Box w="14vw">
+                            <Box w="16vw">
                                 bautizó y puso óleo y crisma
                             </Box>
-                            <Box w="27vw">
+                            <Box w="30vw">
                                 <Input name="b_father" borderColor="black" placeholder="Nombre y Apellido del Padre" value={data.Bautismo.b_father} readOnly={!VerYEditar} onChange={handleBaptismInputText}/>
                             </Box>
                         </HStack>
@@ -421,25 +443,25 @@ export default function PopUp(props) {
                             <Box w=".5vw">
                                 a
                             </Box>
-                            <Box w="20vw">
+                            <Box w="22vw">
                                 <Input name="name" borderColor="black" placeholder='Nombre del Bautizado' value={data.Documento.name} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
                             </Box>
-                            <Box w="20.1vw">
+                            <Box w="22vw">
                                 <Input name="lastname" borderColor="black" placeholder='Apellido del Bautizado' value={data.Documento.lastname} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
                             </Box>
                         </HStack>
                         <HStack paddingTop="1vw">
-                            <Box w="6vw">
+                            <Box w="7vw">
                                 que nació en
                             </Box>
                             <Box w="23.2vw">
                                 <Input name="birthplace" borderColor="black" placeholder='Lugar de Nacimiento' value={data.Documento.birthplace} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
                             </Box>
-                            <Box w=".8vw">
+                            <Box w="1vw">
                                 el
                             </Box>
                             <Box>
-                                <Input w="10vw"
+                                <Input w="12vw"
                                     borderColor="black"
                                     placeholder="Select Date and Time"
                                     type="date"
@@ -451,11 +473,11 @@ export default function PopUp(props) {
                                     />
                             </Box>
                         </HStack>
-                        <HStack padding="1vw 0 0 22vw">
+                        <HStack padding={(windowSize.innerWidth <= 1596 ? "1vw 0 0 29vw" : "1vw 0 0 24vw")}>
                             <Box >
                                 R.U.T.:
                             </Box>
-                            <Box w="16.3vw">
+                            <Box w="13vw">
                                 <Input name="rut" borderColor="black" placeholder="12.345.678-9" value={data.Documento.rut} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
                             </Box>
                         </HStack>
@@ -469,15 +491,15 @@ export default function PopUp(props) {
                             <Box w="2vw">
                                 de
                             </Box>
-                            <Box w="28vw">
+                            <Box w="32vw">
                                 <Input name="p_father" borderColor="black" placeholder="Nombre y Apellido del Papá" value={data.parent_Data.p_father} readOnly={!VerYEditar} onChange={handleParentInputText}/>
                             </Box>
                         </HStack>
                         <HStack paddingTop="1vw">
-                            <Box >
+                            <Box w="3vw">
                                 y de
                             </Box>
-                            <Box w="39vw">
+                            <Box w="42vw">
                                 <Input name="p_mother" borderColor="black" placeholder="Nombre y Apellido de la Mamá" value={data.parent_Data.p_mother} readOnly={!VerYEditar} onChange={handleParentInputText}/>
                             </Box>
                         </HStack>
@@ -485,10 +507,10 @@ export default function PopUp(props) {
                             <Box >
                                 Padrinos:
                             </Box>
-                            <Box w="18.1vw" >
+                            <Box w="19vw" >
                                 <Input name="b_padrino" borderColor="black" placeholder="Nombre y Apellido del Padrino" value={data.Bautismo.b_padrino} readOnly={!VerYEditar} onChange={handleBaptismInputText}/>
                             </Box>
-                            <Box w="18.2vw" >
+                            <Box w="20vw" >
                                 <Input name="b_madrina" borderColor="black" placeholder="Nombre y Apellido de la Madrina" value={data.Bautismo.b_madrina} readOnly={!VerYEditar} onChange={handleBaptismInputText}/>
                             </Box>
                         </HStack>
