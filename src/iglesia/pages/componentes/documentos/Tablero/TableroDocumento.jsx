@@ -159,7 +159,7 @@ export default function Tablero() {
         }).then( async (result) => {
             if (result.isConfirmed)
             {
-                const {data} = await iglesiaApi.post('/deletdocument', selectedDocument)
+                const {data} = await iglesiaApi.post('/deletedocument', selectedDocument)
                 if (result.isConfirmed && data.status == true) {
                     Swal.fire(
                         'Borrado',
