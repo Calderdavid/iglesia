@@ -358,7 +358,7 @@ export default function PopUp(props) {
                     <Box w="18vw">
                         <VStack paddingTop="1vw" alignItems="initial">
                             <HStack >
-                                <Box w="2vw">
+                                <Box w="1.5vw">
                                     N°
                                 </Box>
                                 <Box w="7vw">
