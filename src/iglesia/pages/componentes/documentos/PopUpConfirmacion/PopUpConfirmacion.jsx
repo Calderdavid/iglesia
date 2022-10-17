@@ -11,29 +11,28 @@ import {
     Box,
     Input,
     HStack,
+    VStack
   } from '@chakra-ui/react'
-
+import Select from 'react-select'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { onShowConfirmacion, onAddConfirmacion } from '../../../../../store/documentos/addSacramentos'
+import { onEditDocument } from '../../../../../store/documentos/addDocument'
+import { onShowConfirmacion } from '../../../../../store/documentos/addSacramentos'
 import Styles from './PopUp.module.scss'
 
 export default function PopUpConfirmacion(props) {
-    const defaultData = {
-        padrino: "",
-        madrina: "",
-        fecha: "",
-        padre: "",
-        lugar: "",
-    }
-
-    const { ShowConfirmacion, Confirmacion, Editar } = useSelector((state) => state.addsacramentos)
-    const { Show, VerYEditar } = useSelector((state) => state.adddocument)
+    const options = [
+        {value: 'COLEGIO', label: 'Colegio'},
+        {value: 'IGLESIA_PARROQUIAL', label: 'Iglesia Parroquial'},
+        {value: 'CAPILLA_PARROQUIAL', label: 'Capilla Parroquial'}
+    ]
+    const { ShowConfirmacion, Editar } = useSelector((state) => state.addsacramentos)
+    const { Show, DocumentInfo, VerYEditar } = useSelector((state) => state.adddocument)
 
     const dispatch = useDispatch()
     const disable = props.active
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [data, setData] = useState(Confirmacion)
+    const [data, setData] = useState(DocumentInfo)
     const finalRef = useRef()
 
     const handleButtonPress = () => {
@@ -51,29 +50,58 @@ export default function PopUpConfirmacion(props) {
         })
     }
 
+    const handleSelectValue = (event) => {
+        setData({
+            ...data,
+            Confirmacion:{
+                ...data.Confirmacion,
+                c_place1: event.value
+            }
+        })
+    }
+
+    const handleDocumentInputText = (event) => {
+        setData({
+            ...data,
+            Documento:{
+                ...data.Documento,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
+    const handleConfirmacionInputText = (event) => {
+        setData({
+            ...data,
+            A_confirmacion: true,
+            Confirmacion:{
+                ...data.Confirmacion,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
+
     const agregandoConfirmacion = async (event) => {
         event.preventDefault();
-        dispatch(onAddConfirmacion(data))
+        dispatch(onEditDocument(data))
         onClose()
     }
 
     useEffect(() => {
         if (ShowConfirmacion.Show == true && disable == false) {
             // setData(defaultData)
-            if(Editar)
-            {
-                setData(Confirmacion)
-            }
+            // if(Editar)
+            // {
+            setData(DocumentInfo)
+            // }
             onOpen()
         }
       }, [ShowConfirmacion.Show])
 
-    useEffect(() => {
-    if (Show.Show == false && Editar == false) {
-        setData(defaultData)
-        dispatch(onAddConfirmacion(defaultData))
-    }
-    }, [Show.Show])
+    // useEffect(() => {
+    // if (Show.Show == false && Editar == false) {
+    //     setData(defaultData)
+    // }
+    // }, [Show.Show])
 
     useEffect(() => {
     if (
@@ -88,46 +116,76 @@ export default function PopUpConfirmacion(props) {
         <ModalOverlay />
         <ModalContent>
             <ModalHeader>
-            {!VerYEditar ? (<Box>Ver Confirmación</Box>) : (<>{!Confirmacion.fecha ? (<Box>Añadir Confirmación</Box>) : (<Box>Editar Confirmación</Box>)}</>)}
+            {!VerYEditar ? (<Box>Ver Confirmación</Box>) : (<>{!data.Confirmacion.c_date ? (<Box>Añadir Confirmación</Box>) : (<Box>Editar Confirmación</Box>)}</>)}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-            <Box >
-                    <Box paddingBottom="1vw">
-                        Padrino
-                        <Input name="padrino" value={data.padrino} onChange={handleInputText}/>
-                    </Box>
-                    <Box paddingBottom="1vw">
-                        Madrina
-                        <Input name="madrina" value={data.madrina} onChange={handleInputText}/>
-                    </Box>
-                    <Box paddingBottom="1vw">
-                        Fecha de Celebración
-                        <HStack>
-                            <Input w="13vw"
+            <Box>
+                <VStack alignItems="initial">
+                    <HStack >
+                        <Box w="3vw">
+                            El día
+                        </Box>
+                        <Box>
+                            <Input w="10vw"
+                                borderColor="black"
                                 backgroundColor={"white"}
                                 placeholder="Select Date and Time"
                                 type="date"
                                 size="md"
-                                name="fecha"
-                                value={data.fecha}
-                                onChange={handleInputText}
+                                name="c_date"
+                                value={data.Confirmacion.c_date}
+                                onChange={handleConfirmacionInputText}
                             />
-                            {!VerYEditar ? (
-                            <></>) : (
-                            <Button colorScheme="orange" variant="solid" onClick={handleButtonPress} >
-                                Colocar Fecha Actual
-                            </Button>)}
-                        </HStack>
-                    </Box>
-                    <Box paddingBottom="1vw">
-                        Padre
-                        <Input name="padre" value={data.padre} onChange={handleInputText}/>
-                    </Box>
-                    <Box paddingBottom="1vw">
-                        Lugar
-                        <Input name="lugar" value={data.lugar} onChange={handleInputText}/>
-                    </Box>
+                        </Box>
+                    </HStack>
+                    <HStack paddingTop="1vw">
+                        <Box w="22vw">
+                            <Input borderColor="black" placeholder='Nombre de la persona' name="name" value={data.Documento.name} onChange={handleDocumentInputText}/>
+                        </Box>
+                        <Box w="22vw">
+                            <Input borderColor="black" placeholder='Apellido de la persona' name="lastname" value={data.Documento.lastname} onChange={handleDocumentInputText}/>
+                        </Box>
+                    </HStack>
+                    <HStack paddingTop="1vw">
+                        <Box w="6vw">
+                            se confirmó por
+                        </Box>
+                        <Box w="26vw">
+                            <Input borderColor="black" placeholder="Nombre y Apellido del Padre" name="c_father" value={data.Confirmacion.c_father} onChange={handleConfirmacionInputText}/>
+                        </Box>
+                    </HStack>
+                    <HStack paddingTop="1vw">
+                        <Box>
+                            En
+                        </Box>
+                        <Box w="15vw" borderColor="black" border="1px" borderRadius="5px">
+                            <Select
+                                value={(data.Confirmacion.c_place1 == "COLEGIO" ? {label: options[0].label, value: options[0].value} : (data.Confirmacion.c_place1 == "CAPILLA_PARROQUIAL" ? {label: options[2].label, value: options[2].value}:{label: options[1].label, value: options[1].value}))}
+                                onChange={handleSelectValue}
+                                options={options}
+                                readOnly={!VerYEditar}
+                            />
+                        </Box>
+                        <Box w="27.4vw">
+                            <Input borderColor="black" placeholder="Santo Toribio" name="c_place2" value={data.Confirmacion.c_place2} onChange={handleConfirmacionInputText}/>
+                        </Box>
+                    </HStack>
+                    <HStack paddingTop="1vw">
+                        <Box>
+                            Los cuales fueron testigos
+                        </Box>
+                        <Box w="15.5vw">
+                            <Input borderColor="black" placeholder="Nombre y Apellido del Padrino" name="c_padrino" value={data.Confirmacion.c_padrino} onChange={handleConfirmacionInputText}/>
+                        </Box>
+                        <Box>
+                            y
+                        </Box>
+                        <Box w="15.4vw">
+                            <Input borderColor="black" placeholder="Nombre y Apellido de la Madrina" name="c_madrina" value={data.Confirmacion.c_madrina} onChange={handleConfirmacionInputText}/>
+                        </Box>
+                    </HStack>
+                </VStack>
                 </Box>
             </ModalBody>
             <ModalFooter>

@@ -40,23 +40,23 @@ export default function Tablero() {
     /*const dataTable = {
         Headers: ["ID", "Nombre / Apellido", "Fecha inscripción", "Sacramentos", "Ver", "Eliminar"],
         Data: [
-        {_id: "0000000001", name: "Lucia", lastname: "Jerez", fecha_inscripcion: "29/12/2021", bautismo: false, confirmacion: false, matrimonio: false},
-        {_id: "0000000002", name: "Elisa", lastname: "Sánchez", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: false},
-        {_id: "0000000003", name: "Ibai", lastname: "Heras", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000004", name: "Brian", lastname: "Melgar", fecha_inscripcion: "29/12/2021" , bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000005", name: "Máximo", lastname: "Arroyo", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: false, matrimonio: true},
-        {_id: "0000000006", name: "María", lastname: "Elvira Izquierdo", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000007", name: "Rosana", lastname: "Aguado", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000008", name: "Marcos", lastname: "Tejedor", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000001", name: "Lucia", lastname: "Jerez", fecha_inscripcion: "29/12/2021", bautismo: false, confirmacion: true, matrimonio: true},
-        {_id: "0000000002", name: "Elisa", lastname: "Sánchez", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000003", name: "Ibai", lastname: "Heras", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000004", name: "Brian", lastname: "Melgar", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000005", name: "Máximo", lastname: "Arroyo", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: false},
-        {_id: "0000000006", name: "María", lastname: "Elvira Izquierdo", fecha_inscripcion: "29/12/2021", bautismo: false, confirmacion: true, matrimonio: true},
-        {_id: "0000000007", name: "Rosana", lastname: "Aguado", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: false, matrimonio: true},
-        {_id: "0000000008", name: "Marcos", lastname: "Tejedor", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: true},
-        {_id: "0000000009", name: "Mari", lastname: "Perea", fecha_inscripcion: "29/12/2021", bautismo: true, confirmacion: true, matrimonio: false}]
+        {_id: "0000000001", name: "Lucia", lastname: "Jerez", fecha_inscripcion: "29/12/2021", Bautismo: false, Confirmacion: false, Matrimonio: false},
+        {_id: "0000000002", name: "Elisa", lastname: "Sánchez", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: false},
+        {_id: "0000000003", name: "Ibai", lastname: "Heras", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000004", name: "Brian", lastname: "Melgar", fecha_inscripcion: "29/12/2021" , Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000005", name: "Máximo", lastname: "Arroyo", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: false, Matrimonio: true},
+        {_id: "0000000006", name: "María", lastname: "Elvira Izquierdo", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000007", name: "Rosana", lastname: "Aguado", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000008", name: "Marcos", lastname: "Tejedor", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000001", name: "Lucia", lastname: "Jerez", fecha_inscripcion: "29/12/2021", Bautismo: false, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000002", name: "Elisa", lastname: "Sánchez", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000003", name: "Ibai", lastname: "Heras", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000004", name: "Brian", lastname: "Melgar", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000005", name: "Máximo", lastname: "Arroyo", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: false},
+        {_id: "0000000006", name: "María", lastname: "Elvira Izquierdo", fecha_inscripcion: "29/12/2021", Bautismo: false, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000007", name: "Rosana", lastname: "Aguado", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: false, Matrimonio: true},
+        {_id: "0000000008", name: "Marcos", lastname: "Tejedor", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: true},
+        {_id: "0000000009", name: "Mari", lastname: "Perea", fecha_inscripcion: "29/12/2021", Bautismo: true, Confirmacion: true, Matrimonio: false}]
     }*/
     const [selectedDocument, setSelecteddocument] = useState({})
     const [preventFirstLoad, setPreventFirstLoad] = useState(0);
@@ -87,16 +87,46 @@ export default function Tablero() {
     const ViewDocument= async (i)  => {
         dispatch(onEditDocument({
             _id: dataTable.Data[i]._id,
-            name: dataTable.Data[i].name,
-            lastname: dataTable.Data[i].lastname,
-            email: dataTable.Data[i].email,
-            phone: dataTable.Data[i].phone,
-            inscr_Date: dataTable.Data[i].inscr_Date,
-            Referencia: dataTable.Data[i].Referencia,
+            Documento:{
+                n_id: dataTable.Data[i].n_id,
+                rut: dataTable.Data[i].rut, 
+                name: dataTable.Data[i].name, 
+                lastname: dataTable.Data[i].lastname, 
+                birth: dataTable.Data[i].birth, 
+                birthplace: dataTable.Data[i].birthplace, 
+                email: dataTable.Data[i].email,
+                Obs: dataTable.Data[i].Obs, 
+                inscr_Date: dataTable.Data[i].inscr_Date,
+                address: dataTable.Data[i].address,
+                phone: dataTable.Data[i].phone,
+                Referencia: dataTable.Data[i].Referencia,
+                parent_Data:{
+                    p_id: dataTable.Data[i].parent_Data.p_id,
+                },
+                Bautismo:{
+                    b_id: dataTable.Data[i].Bautismo.b_id,
+                },
+                Confirmacion:{
+                    c_id: dataTable.Data[i].Confirmacion.c_id,
+                },
+                Matrimonio:{
+                    m_id: dataTable.Data[i].Matrimonio.m_id,
+                },
+                
+            },
+            parent_Data:{
+                p_id: dataTable.Data[i].parent_Data.p_id,
+            },
+            Bautismo:{
+                b_id: dataTable.Data[i].Bautismo.b_id,
+            },
+            Confirmacion:{
+                c_id: dataTable.Data[i].Confirmacion.c_id,
+            },
+            Matrimonio:{
+                m_id: dataTable.Data[i].Matrimonio.m_id,
+            },
         }))
-        dispatch(onAddBautismo(dataTable.Data[i].Bautismo))
-        dispatch(onAddConfirmacion(dataTable.Data[i].Confirmacion))
-        dispatch(onAddMatrimonio(dataTable.Data[i].Matrimonio))
         dispatch(onEdit(true))
         dispatch(onVerYEditar(false))
         dispatch(onAddDocument({Show: true}))
@@ -189,7 +219,7 @@ export default function Tablero() {
                         {dataTable.Data.map((data, i) => (
                         <Tr key={i} >
                         <Td color="#173F8A" borderColor="#70ACB5" backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            {data._id}
+                            {data.n_id}
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                             {data.name} {data.lastname}
@@ -199,9 +229,9 @@ export default function Tablero() {
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                         <HStack spacing="12%" justifyContent="center">
-                                {(data.Bautismo.fecha!= "" ) ? ( <Image src={bautismo_black} alt="Ver" w="1.5vw" />): ( <Image src={bautismo_white} alt="Borrar" w="1.4vw" />)}
-                                {(data.Confirmacion.fecha != "" ) ? ( <Image src={confirmacion_black} alt="Ver" w="1.5vw" />): ( <Image src={confirmacion_white} alt="Borrar" w="1.4vw" />)}
-                                {(data.Matrimonio.fecha != "" ) ? ( <Image src={matrimonio_black} alt="Ver" w="1.5vw" />): ( <Image src={matrimonio_white} alt="Borrar" w="1.4vw" />)}*/
+                                {(data.Bautismo.b_id!= "" ) ? ( <Image src={bautismo_black} alt="Ver" w="1.5vw" />): ( <Image src={bautismo_white} alt="Borrar" w="1.4vw" />)}
+                                {(data.Confirmacion.c_id != "" ) ? ( <Image src={confirmacion_black} alt="Ver" w="1.5vw" />): ( <Image src={confirmacion_white} alt="Borrar" w="1.4vw" />)}
+                                {(data.Matrimonio.m_id != "" ) ? ( <Image src={matrimonio_black} alt="Ver" w="1.5vw" />): ( <Image src={matrimonio_white} alt="Borrar" w="1.4vw" />)}*/
                             </HStack>
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
