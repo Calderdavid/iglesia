@@ -109,6 +109,7 @@ export default function PopUpConfirmacion(props) {
                                 type="date"
                                 size="md"
                                 name="c_date"
+                                readOnly={!VerYEditar}
                                 value={data.Confirmacion.c_date}
                                 onChange={handleConfirmacionInputText}
                             />
@@ -116,10 +117,10 @@ export default function PopUpConfirmacion(props) {
                     </HStack>
                     <HStack paddingTop="1vw">
                         <Box w="22vw">
-                            <Input borderColor="black" placeholder='Nombre de la persona' name="name" value={data.Documento.name} onChange={handleDocumentInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder='Nombre de la persona' name="name" value={data.Documento.name} onChange={handleDocumentInputText}/>
                         </Box>
                         <Box w="22vw">
-                            <Input borderColor="black" placeholder='Apellido de la persona' name="lastname" value={data.Documento.lastname} onChange={handleDocumentInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder='Apellido de la persona' name="lastname" value={data.Documento.lastname} onChange={handleDocumentInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -127,7 +128,7 @@ export default function PopUpConfirmacion(props) {
                             se confirmó por
                         </Box>
                         <Box w="26vw">
-                            <Input borderColor="black" placeholder="Nombre y Apellido del Padre" name="c_father" value={data.Confirmacion.c_father} onChange={handleConfirmacionInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Padre" name="c_father" value={data.Confirmacion.c_father} onChange={handleConfirmacionInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -143,7 +144,7 @@ export default function PopUpConfirmacion(props) {
                             />
                         </Box>
                         <Box w="27.4vw">
-                            <Input borderColor="black" placeholder="Santo Toribio" name="c_place2" value={data.Confirmacion.c_place2} onChange={handleConfirmacionInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Santo Toribio" name="c_place2" value={data.Confirmacion.c_place2} onChange={handleConfirmacionInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -151,13 +152,13 @@ export default function PopUpConfirmacion(props) {
                             Los cuales fueron testigos
                         </Box>
                         <Box w="15.5vw">
-                            <Input borderColor="black" placeholder="Nombre y Apellido del Padrino" name="c_padrino" value={data.Confirmacion.c_padrino} onChange={handleConfirmacionInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Padrino" name="c_padrino" value={data.Confirmacion.c_padrino} onChange={handleConfirmacionInputText}/>
                         </Box>
                         <Box>
                             y
                         </Box>
                         <Box w="15.4vw">
-                            <Input borderColor="black" placeholder="Nombre y Apellido de la Madrina" name="c_madrina" value={data.Confirmacion.c_madrina} onChange={handleConfirmacionInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido de la Madrina" name="c_madrina" value={data.Confirmacion.c_madrina} onChange={handleConfirmacionInputText}/>
                         </Box>
                     </HStack>
                 </VStack>

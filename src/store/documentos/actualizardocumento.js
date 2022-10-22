@@ -4,9 +4,11 @@ export const actualizarDocumentos= createSlice({
     name: 'actualizardocumentos',
     initialState: {
         documento: {
-            name:"",
-            lastname:"",
-            email:"",
+            name: "",
+            lastname: "",
+            email: "",
+            rol: "NINGUNO",
+            lastSeen: "",
             password:""
         },
     },

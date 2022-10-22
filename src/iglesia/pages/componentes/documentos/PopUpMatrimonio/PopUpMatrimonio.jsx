@@ -110,16 +110,17 @@ export default function PopUpMatrimonio(props) {
                                 size="md"
                                 name="m_date"
                                 value={data.Matrimonio.m_date}
+                                readOnly={!VerYEditar}
                                 onChange={handleMarriageInputText}
                             />
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
                         <Box w="22vw" paddingLeft="1vw">
-                            <Input borderColor="black" placeholder='Nombre de la persona' name="name" value={data.Documento.name} onChange={handleDocumentInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder='Nombre de la persona' name="name" value={data.Documento.name} onChange={handleDocumentInputText}/>
                         </Box>
                         <Box w="22vw">
-                            <Input borderColor="black" placeholder='Apellido de la persona' name="lastname" value={data.Documento.lastname} onChange={handleDocumentInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder='Apellido de la persona' name="lastname" value={data.Documento.lastname} onChange={handleDocumentInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -127,10 +128,10 @@ export default function PopUpMatrimonio(props) {
                             y 
                         </Box>
                         <Box w="21vw">
-                            <Input borderColor="black" placeholder='Nombre de la pareja' name="m_partner_name" value={data.Matrimonio.m_partner_name} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder='Nombre de la pareja' name="m_partner_name" value={data.Matrimonio.m_partner_name} onChange={handleMarriageInputText}/>
                         </Box>
                         <Box w="22vw">
-                            <Input borderColor="black" placeholder='Apellido de la pareja' name="m_partner_lastname" value={data.Matrimonio.m_partner_lastname} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder='Apellido de la pareja' name="m_partner_lastname" value={data.Matrimonio.m_partner_lastname} onChange={handleMarriageInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -138,7 +139,7 @@ export default function PopUpMatrimonio(props) {
                             Fueron bendecidos en sagrado Matrimonio por
                         </Box>
                         <Box w="22vw">
-                            <Input borderColor="black" placeholder="Nombre y Apellido del Padre" name="m_father" value={data.Matrimonio.m_father} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Padre" name="m_father" value={data.Matrimonio.m_father} onChange={handleMarriageInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -154,7 +155,7 @@ export default function PopUpMatrimonio(props) {
                             />
                         </Box>
                         <Box w="27.4vw">
-                            <Input borderColor="black" placeholder="Santo Toribio" name="m_place2" value={data.Matrimonio.m_place2} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Santo Toribio" name="m_place2" value={data.Matrimonio.m_place2} onChange={handleMarriageInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
@@ -162,13 +163,13 @@ export default function PopUpMatrimonio(props) {
                             Los cuales fueron testigos
                         </Box>
                         <Box w="15.5vw">
-                            <Input borderColor="black" placeholder="Nombre y Apellido del Padrino" name="m_padrino" value={data.Matrimonio.m_padrino} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Padrino" name="m_padrino" value={data.Matrimonio.m_padrino} onChange={handleMarriageInputText}/>
                         </Box>
                         <Box>
                             y
                         </Box>
                         <Box w="15.4vw">
-                            <Input borderColor="black" placeholder="Nombre y Apellido de la Madrina" name="m_madrina" value={data.Matrimonio.m_madrina} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido de la Madrina" name="m_madrina" value={data.Matrimonio.m_madrina} onChange={handleMarriageInputText}/>
                         </Box>
                     </HStack>
                 </VStack>

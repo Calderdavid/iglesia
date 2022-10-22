@@ -5,6 +5,7 @@ import Plus from '../../../../../../assets/images/plus.png'
 
 import { useDispatch } from "react-redux"
 import { onAddUser } from '../../../../../../store/usuarios/addUser'
+import { onViewUser, onVerYEditar } from "../../../../../../store/usuarios/viewuser"
 
 export default function BarraBusqueda() {
     const dispatch = useDispatch()
@@ -19,6 +20,8 @@ export default function BarraBusqueda() {
     const agregarUsuario = (event) => {
         event.preventDefault();
         dispatch(onAddUser({ Show:true }))
+        dispatch(onViewUser(false))
+        dispatch(onVerYEditar(true))
     }
 
     return(

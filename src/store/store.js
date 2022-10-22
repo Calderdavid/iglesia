@@ -5,6 +5,7 @@ import { addUser } from "./usuarios/addUser";
 import { actualizarDocumentos } from "./documentos/actualizardocumento"
 import { addDocument } from "./documentos/addDocument";
 import { addSacramentos } from "./documentos/addSacramentos";
+import { viewUser } from "./usuarios/viewuser";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         adduser: addUser.reducer,
         adddocument: addDocument.reducer,
         actualizardocumentos: actualizarDocumentos.reducer,
-        addsacramentos: addSacramentos.reducer
+        addsacramentos: addSacramentos.reducer,
+        viewuser: viewUser.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

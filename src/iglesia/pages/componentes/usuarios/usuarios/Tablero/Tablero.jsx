@@ -13,15 +13,15 @@ import {
     HStack,
   } from '@chakra-ui/react'
 import Styles from './Tablero.module.scss'
-import axios from 'axios'
 import React from 'react'
 import Ver from '../../../../../../assets/images/view.png'
 import Borrar from '../../../../../../assets/images/delete.png'
 import { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../../api/iglesiaApi'
-
-
+import { onEditUser, onVerYEditar, onViewUser } from '../../../../../../store/usuarios/viewuser'
+import { onAddUser } from '../../../../../../store/usuarios/addUser'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
@@ -53,6 +53,7 @@ export default function Tablero() {
         {_id: "0000000009", name: "Mari", lastname: "Perea", email: "mperea@correo.com", ult_vez: "29/12/2021"}]
     }
     */
+    const dispatch = useDispatch()
     const [selectedUser, setSelectedUser] = useState({})
     const [preventFirstLoad, setPreventFirstLoad] = useState(0);
     const [dataTable, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Correo Electrónico", "Última conexión", "Ver", "Eliminar"],
@@ -64,6 +65,14 @@ export default function Tablero() {
             ...dataTable,
             Data: peticion.data.users
         })
+    }
+
+    const ViewDocument= async (i)  => {
+        console.log(dataTable.Data[i])
+        dispatch(onEditUser(dataTable.Data[i]))
+        dispatch(onAddUser({ Show:true }))
+        dispatch(onViewUser(true))
+        dispatch(onVerYEditar(false))
     }
 
     const AlertDeleteUsers = async (i)  => {
@@ -175,7 +184,7 @@ export default function Tablero() {
                             27 diciembre 2021
                         </Td>
                         <Td color="#FF5B59" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            <Box className={Styles.ver}>
+                            <Box className={Styles.ver} onClick={(event) => ViewDocument(i)}>
                                 <Image src={Ver} alt="Ver" w="1.5vw" />
                             </Box>
                         </Td>
