@@ -6,7 +6,7 @@ import { CheckIcon } from '@chakra-ui/icons'
 import { useState } from "react"
 import React,{ useEffect } from "react"
 import iglesiaApi from '../../../../../api/iglesiaApi';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Plus from '../../../../../assets/images/plus.png'
 
@@ -36,6 +36,7 @@ export default function BarraBusqueda() {
     const dispatch = useDispatch()
     const [data, setData] = useState(dataConstruct)
     const [ListadoDocumento, setListaDocumento] = useState([])
+    const { documento } = useSelector((state) => state.actualizardocumentos)
     const [displayButton, setDisplayButton] = useState({
         b1: false,
         b2: false,
@@ -77,17 +78,21 @@ export default function BarraBusqueda() {
     const getDocumentos = async () => {
         const peticion = await iglesiaApi.post('/getdocument', { search: data.search, selectValue: data.selectValue})
         setListaDocumento(peticion.data.documents)
+        console.log(peticion.data.documents)
+        console.log("-------documento-------")
     }
 
-    const filtrarSacramentos = async () => {
-        const peticion = await iglesiaApi.post('/filterdocument', { docs: ListadoDocumento, displayButton: displayButton})
+    const filtrarSacramentos = async (list) => {
+        console.log(list)
+        console.log("-------sacramento-------")
+        const peticion = await iglesiaApi.post('/filterdocument', { docs: list, displayButton: displayButton})
         getFiltro(peticion.data.docs)
-        console.log(peticion.data)
+        console.log(peticion.data.docs)
+        console.log("-------filter-------")
     }
 
     const getFiltro = async (newList) => {
-        const Documentos = (newList.length != 0 ? Array.from(newList) : Array.from(ListadoDocumento))
-
+        const Documentos = Array.from(newList)
         if (data.orderby == "NOMBRE")
         {
             Documentos.sort((a,b) => {
@@ -156,18 +161,17 @@ export default function BarraBusqueda() {
                 return 0;
             })
         }
-        console.log("asdasd")
         dispatch(onActualizarDocumentos(Documentos))
     }
 
     useEffect(() => {
         // queremos que cada vez que ListadoDocumento se actualize, la funcion de abajo se ejecute
         dispatch(onActualizarDocumentos(ListadoDocumento))
-    
+        filtrarSacramentos(ListadoDocumento)
     },[ListadoDocumento])
 
     useEffect(() => {
-        filtrarSacramentos()
+        filtrarSacramentos(ListadoDocumento)
     },[displayButton])
 
     // esto se ejecuta al cargar la pagina y al actualizar los campos de texto
@@ -176,7 +180,7 @@ export default function BarraBusqueda() {
     },[data.search, data.selectValue])
     
     useEffect(() => {
-        getFiltro([])
+        getFiltro(documento)
     },[data.orderby])
 
     useEffect(() => {
