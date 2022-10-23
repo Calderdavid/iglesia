@@ -232,7 +232,7 @@ export default function Tablero() {
                             {data.name} {data.lastname}
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
-                            {data.inscr_Date}
+                            {new Date(data.inscr_Date).toLocaleDateString('es-cl', {timeZone: 'GMT'})}
                         </Td>
                         <Td color="#646464" borderColor="#70ACB5"  backgroundColor="white" padding=".8vw 0 .8vw 0">
                         <HStack spacing="12%" justifyContent="center">
