@@ -89,8 +89,8 @@ export default function BarraBusqueda() {
         if (data.ordenar == "NOMBRE")
         {
             usuarios.sort((a,b) => {
-                const nameA = a.name
-                const nameB = b.name
+                const nameA = a.nameE
+                const nameB = b.nameE
 
                 if (nameA < nameB) {
                     return -1;
@@ -106,8 +106,8 @@ export default function BarraBusqueda() {
         if (data.ordenar == "APELLIDO")
         {
             usuarios.sort((a,b) => {
-                const lastnameA = a.lastname
-                const lastnameB = b.lastname
+                const lastnameA = a.lastnameE
+                const lastnameB = b.lastnameE
                 
                 if (lastnameA < lastnameB) {
                     return -1;

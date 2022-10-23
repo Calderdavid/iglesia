@@ -86,13 +86,13 @@ export default function BarraBusqueda() {
     }
 
     const getFiltro = async (newList) => {
-        const Documentos = (newList.length != 0 ? Array.from(newList) : ListadoDocumento)
+        const Documentos = (newList.length != 0 ? Array.from(newList) : Array.from(ListadoDocumento))
 
         if (data.orderby == "NOMBRE")
         {
             Documentos.sort((a,b) => {
-                const nameA = a.name
-                const nameB = b.name
+                const nameA = a.nameE
+                const nameB = b.nameE
 
                 if (nameA < nameB) {
                     return -1;
@@ -108,30 +108,13 @@ export default function BarraBusqueda() {
         if (data.orderby == "APELLIDO")
         {
             Documentos.sort((a,b) => {
-                const lastnameA = a.lastname
-                const lastnameB = b.lastname
+                const lastnameA = a.lastnameE
+                const lastnameB = b.lastnameE
                 
                 if (lastnameA < lastnameB) {
                     return -1;
                 }
                 if (lastnameA > lastnameB) {
-                    return 1;
-                }
-                
-                // names must be equal
-                return 0;
-            })
-        }
-        if (data.orderby == "MAS_ANTIGUO")
-        {
-            Documentos.sort((a,b) => {
-                const inscr_DateA = a.inscr_Date
-                const inscr_DateB = b.inscr_Date
-                
-                if (inscr_DateA > inscr_DateB) {
-                    return -1;
-                }
-                if (inscr_DateA < inscr_DateB) {
                     return 1;
                 }
                 
@@ -145,6 +128,23 @@ export default function BarraBusqueda() {
                 const inscr_DateA = a.inscr_Date
                 const inscr_DateB = b.inscr_Date
                 
+                if (inscr_DateA > inscr_DateB) {
+                    return -1;
+                }
+                if (inscr_DateA < inscr_DateB) {
+                    return 1;
+                }
+                
+                // names must be equal
+                return 0;
+            })
+        }
+        if (data.orderby == "MAS_ANTIGUO")
+        {
+            Documentos.sort((a,b) => {
+                const inscr_DateA = a.inscr_Date
+                const inscr_DateB = b.inscr_Date
+                
                 if (inscr_DateA < inscr_DateB) {
                     return -1;
                 }
@@ -156,11 +156,8 @@ export default function BarraBusqueda() {
                 return 0;
             })
         }
-        if (!displayButton.b1 && !displayButton.b2 && !displayButton.b3){
-            dispatch(onActualizarDocumentos(Documentos))
-        } else {
-            dispatch(onActualizarDocumentos(newList))
-        }
+        console.log("asdasd")
+        dispatch(onActualizarDocumentos(Documentos))
     }
 
     useEffect(() => {
@@ -178,6 +175,10 @@ export default function BarraBusqueda() {
         getDocumentos()
     },[data.search, data.selectValue])
     
+    useEffect(() => {
+        getFiltro([])
+    },[data.orderby])
+
     useEffect(() => {
         setData({
             ...data,
