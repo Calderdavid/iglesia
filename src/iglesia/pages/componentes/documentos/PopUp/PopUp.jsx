@@ -337,10 +337,6 @@ export default function PopUp(props) {
     }, []);
 
     useEffect(() => {
-        console.log(windowSize)
-    },[windowSize])
-
-    useEffect(() => {
         setData(DocumentInfo)
     },[DocumentInfo])
     

@@ -72,7 +72,6 @@ export default function Tablero() {
     }
 
     const ViewDocument= async (i)  => {
-        console.log(dataTable.Data[i])
         dispatch(onEditUser(dataTable.Data[i]))
         dispatch(onAddUser({ Show:true }))
         dispatch(onViewUser(true))
@@ -157,7 +156,6 @@ export default function Tablero() {
             ...dataTable,
             Data: UserOrder
         })
-        console.log(UserOrder)
     },[UserOrder])
 
     return(

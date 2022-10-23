@@ -65,13 +65,12 @@ export default function Tablero() {
     Data: []})
     
     const getFirstDocumentos = async () => {
-        const peticion = await iglesiaApi.post('/getdocument', {search: "", buscar: ""})
-        console.log(peticion.dataTable)
+        const peticion = await iglesiaApi.post('/getdocument', {search: "", selectValue: "default"})
         setDataTable({
             ...dataTable,
             Data: peticion.data.documents
         })
-        setLoading(true)
+        setLoading(false)
     }
     const { documento } = useSelector((state) => state.actualizardocumentos)
 

@@ -185,7 +185,6 @@ export default function PopUp(props) {
     },[displayPassword])
 
     useEffect(() => {
-        console.log(Ver)
         if (Show.Show == true && disable == false) {
             if(!Ver) {
                 setData(defaultData)
@@ -209,10 +208,6 @@ export default function PopUp(props) {
         ) {
             dispatch(onAddUser({ Show:false }))
         }},[Show.Show])
-
-        useEffect(() => {
-            console.log(data)
-            },[data])
 
     return (
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="2xl">
