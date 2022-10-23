@@ -56,15 +56,19 @@ export default function Tablero() {
     const dispatch = useDispatch()
     const [selectedUser, setSelectedUser] = useState({})
     const [preventFirstLoad, setPreventFirstLoad] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [dataTable, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Correo Electrónico", "Última conexión", "Ver", "Eliminar"],
     Data: []})
 
+    const { UserOrder } = useSelector((state) => state.getuser)
+
     const getFirstUsers = async () => {
-        const peticion = await iglesiaApi.post('/getusers', {search: "default", buscar: ""})
+        const peticion = await iglesiaApi.post('/getusers', {search: "", buscar: ""})
         setDataTable({
             ...dataTable,
             Data: peticion.data.users
         })
+        setLoading(false)
     }
 
     const ViewDocument= async (i)  => {
@@ -144,9 +148,17 @@ export default function Tablero() {
     },[selectedUser])
 
     useEffect(() => {
+        setLoading(true)
         getFirstUsers();
     },[])
 
+    useEffect(() => {
+        setDataTable({
+            ...dataTable,
+            Data: UserOrder
+        })
+        console.log(UserOrder)
+    },[UserOrder])
 
     return(
         <Box padding="1vw 0 0 2vw">
@@ -167,6 +179,7 @@ export default function Tablero() {
                     ))}
                 </Tr>
                 </Thead>
+                {!loading ?
                     <Tbody >
                         {dataTable.Data.map((data, i) => (
                         <Tr key={i} >
@@ -195,8 +208,11 @@ export default function Tablero() {
                         </Td>
                         </Tr>
                     ))}
-                    </Tbody>
+                    </Tbody> : (<></>)}
             </Table>
+            {loading ?
+                <Box fontSize="2vw" color="white" padding="4vw 0 0 34vw" > <Spinner size="xl" thickness='4px' color="blue.500"/> </Box> : (dataTable.Data.length !== 0 ?
+                    (<></>) : <Box fontSize="2vw" color="black" padding="4vw 0 0 29.5vw" > No hay resultados. </Box> ) }
             </Box>
         </Box>
     )

@@ -60,24 +60,28 @@ export default function Tablero() {
     }*/
     const [selectedDocument, setSelecteddocument] = useState({})
     const [preventFirstLoad, setPreventFirstLoad] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [dataTable, setDataTable] = useState({Headers: ["ID", "Nombre / Apellido", "Fecha inscripción", "Sacramentos", "Ver", "Eliminar"],
     Data: []})
     
     const getFirstDocumentos = async () => {
-        const peticion = await iglesiaApi.post('/getdocument', {search: "default", buscar: ""})
+        const peticion = await iglesiaApi.post('/getdocument', {search: "", buscar: ""})
         console.log(peticion.dataTable)
         setDataTable({
             ...dataTable,
             Data: peticion.data.documents
         })
+        setLoading(true)
     }
     const { documento } = useSelector((state) => state.actualizardocumentos)
 
     useEffect(() => {
+        setLoading(true)
         setDataTable({
             ...dataTable,
             Data: documento
         })
+        setLoading(false)
     },[documento])
 
     const AlertDeleteDocument= async (i)  => {
@@ -193,9 +197,12 @@ export default function Tablero() {
             setPreventFirstLoad(preventFirstLoad+1)
         }
     },[selectedDocument])
+
     useEffect(() => {
+        setLoading(true);
         getFirstDocumentos();
     },[])
+
     return(
         <Box padding="1vw 0 0 2vw">
             <Box maxHeight="39vw" overflowY="scroll" borderRadius="15px" w="74.9vw">
@@ -215,6 +222,7 @@ export default function Tablero() {
                     ))}
                 </Tr>
                 </Thead>
+                {!loading ?
                     <Tbody >
                         {dataTable.Data.map((data, i) => (
                         <Tr key={i} >
@@ -246,8 +254,11 @@ export default function Tablero() {
                         </Td>
                         </Tr>
                     ))}
-                    </Tbody>
-            </Table>
+                    </Tbody> : (<></>)}
+                </Table>
+                {loading ?
+                <Box fontSize="2vw" color="white" padding="4vw 0 0 34vw" > <Spinner size="xl" thickness='4px' color="blue.500"/> </Box> : (dataTable.Data.length !== 0 ?
+                    (<></>) : <Box fontSize="2vw" color="black" padding="4vw 0 0 29.5vw" > No hay resultados. </Box> ) }
             </Box>
         </Box>
     )
