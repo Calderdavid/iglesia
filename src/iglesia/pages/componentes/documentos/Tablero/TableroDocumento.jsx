@@ -102,6 +102,8 @@ export default function Tablero() {
                 inscr_Date: dataTable.Data[i].inscr_Date,
                 address: dataTable.Data[i].address,
                 phone: dataTable.Data[i].phone,
+                Tomo: dataTable.Data[i].Tomo,
+                Pag: dataTable.Data[i].Pag,
                 Referencia: dataTable.Data[i].Referencia,
                 parent_Data:{
                     p_id: dataTable.Data[i].parent_Data.p_id,

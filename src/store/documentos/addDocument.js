@@ -17,6 +17,8 @@ export const addDocument = createSlice({
                 inscr_Date: "",
                 address: "",
                 phone: "",
+                Tomo: "",
+                Pag: "",
                 Referencia: "",
             },
             A_parent: false,

@@ -41,6 +41,8 @@ export default function PopUp(props) {
             inscr_Date: "",
             address: "",
             phone: "",
+            Tomo: "",
+            Pag: "",
             Referencia: "",
         },
         A_parent: false,
@@ -343,7 +345,7 @@ export default function PopUp(props) {
     return (
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" >
         <ModalOverlay />
-        <ModalContent maxH="400vw" maxW={(windowSize.innerWidth <= 1596 ? "68vw" : "58vw")}>
+        <ModalContent maxH="400vw" maxW={(windowSize.innerWidth <= 1596 ? "73vw" : "58vw")}>
             <ModalHeader>
             {!VerYEditar ? (<Box>Ver Documento</Box>) : (<>{!Editar ? (<Box>Agregar Documento</Box>) : (<Box>Editar Documento</Box>)}</>)}
             </ModalHeader>
@@ -351,7 +353,7 @@ export default function PopUp(props) {
             <ModalBody >
             {!loading ? (
                 <HStack>
-                    <Box w="18vw">
+                    <Box w={(windowSize.innerWidth <= 1596 ? "22vw" : "18vw")}>
                         <VStack paddingTop="1vw" alignItems="initial">
                             <HStack >
                                 <Box w="1.5vw">
@@ -380,19 +382,33 @@ export default function PopUp(props) {
                                 Otras Notas:
                             </Box>
                             <Box w="18vw">
-                                <Textarea name="Obs" h="10vw" borderColor="black" value={data.Documento.Obs} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
+                                <Textarea name="Obs" h="8vw" borderColor="black" value={data.Documento.Obs} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
                             </Box>
+                            <HStack padding="1vw 0 1vw 0">
+                                <Box >
+                                    Libro Tomo
+                                </Box>
+                                <Box w={(windowSize.innerWidth <= 1596 ? "5vw" : "4vw")} >
+                                    <Input name="Tomo" borderColor="black" placeholder="1" value={data.Documento.Tomo} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
+                                </Box>
+                                <Box >
+                                    Página:
+                                </Box>
+                                <Box w="5vw" >
+                                    <Input name="Pag" borderColor="black" placeholder="35" value={data.Documento.Pag} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
+                                </Box>
+                            </HStack>
                             <HStack >
-                                <Box w="12vw">
+                                <Box w={(windowSize.innerWidth <= 1596 ? "14vw" : "10vw")}>
                                     Anotado en el índice pág.
                                 </Box>
-                                <Box w="6vw">
+                                <Box w="5vw">
                                     <Input name="Referencia" borderColor="black" placeholder="1" value={data.Documento.Referencia} readOnly={!VerYEditar} onChange={handleDocumentInputText}/>
                                 </Box>
                             </HStack>
                         </VStack>
                     </Box>
-                    <Box h="30vw" w="1px" marginLeft="100vw" backgroundColor="gray">
+                    <Box h={(windowSize.innerWidth <= 1596 ? "40vw" : "30vw")} w="1px" marginLeft="100vw" backgroundColor="gray">
 
                     </Box>
                     <Box w={(windowSize.innerWidth <= 1596 ? "45vw" : "35vw")} >
