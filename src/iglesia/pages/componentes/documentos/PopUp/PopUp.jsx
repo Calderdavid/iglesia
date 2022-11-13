@@ -301,6 +301,10 @@ export default function PopUp(props) {
         setData(structuredData)
     }
 
+    const openPDF = async (event) => {
+        window.location.href = '/ExportBaptism?View=true&' + data._id
+    }
+
     useEffect(() => {
         if (Show.Show == true && disable == false) {
             if(!Editar)
@@ -531,25 +535,28 @@ export default function PopUp(props) {
                 ) : (<Box padding="15% 0 15% 48%"><Spinner size="xl" thickness='4px' color="blue.500"/></Box>)}
             </ModalBody>
             <ModalFooter>
-            {!VerYEditar ? (
-                <Button
-                colorScheme="green"
-                variant="solid"
-                mr={3}
-                onClick={EditandoDocumento}
-                >
-                    Editar
+                <Button colorScheme="yellow" mr={3} onClick={openPDF}>
+                    Ver en PDF
                 </Button>
-                ) : (
-                <Button
-                colorScheme="orange"
-                backgroundColor="rgb(238, 152, 81)"
-                variant="solid"
-                mr={3}
-                onClick={agregandoDocumento}
-                >
-                    {!Editar ? (<Box>Agregar Documento</Box>) : (<Box>Aplicar Cambios</Box>)}
-                </Button>
+                {!VerYEditar ? (
+                    <Button
+                    colorScheme="green"
+                    variant="solid"
+                    mr={3}
+                    onClick={EditandoDocumento}
+                    >
+                        Editar
+                    </Button>
+                    ) : (
+                    <Button
+                    colorScheme="orange"
+                    backgroundColor="rgb(238, 152, 81)"
+                    variant="solid"
+                    mr={3}
+                    onClick={agregandoDocumento}
+                    >
+                        {!Editar ? (<Box>Agregar Documento</Box>) : (<Box>Aplicar Cambios</Box>)}
+                    </Button>
                 )}
                 <Button colorScheme="red" mr={3} onClick={onClose}>
                     Cerrar

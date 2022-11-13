@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { LoginPage } from '../auth/pages'
-import { AuthRoutes } from '../auth/routes/AuthRoutes'
 import { useAuthStore } from '../hooks/usAuthStore'
-import { IglesiaRoutes } from '../iglesia/routes/IglesiaRoutes'
 import { Documentos } from '../iglesia/pages/Documentos'
 import { Usuarios } from '../iglesia/pages/Usuarios'
 import { IglesiaPage } from "../iglesia/pages/IglesiaPage"
-
+import { ExportBaptism } from '../iglesia/pages/ExportBaptism'
 
 
 export const AppRouter = () => {
@@ -41,6 +39,7 @@ export const AppRouter = () => {
                 <Route path="/" element={<IglesiaPage />}/>
                 <Route path="/Documentos" element={<Documentos/>} />
                 <Route path="/Usuarios" element={<Usuarios/>} />
+                <Route path="/ExportBaptism" element={ <ExportBaptism/> } />
                 <Route path="/*" element={ <Navigate to="/" /> } />
               </>
             )
