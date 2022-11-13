@@ -535,9 +535,10 @@ export default function PopUp(props) {
                 ) : (<Box padding="15% 0 15% 48%"><Spinner size="xl" thickness='4px' color="blue.500"/></Box>)}
             </ModalBody>
             <ModalFooter>
+                {!VerYEditar ? (
                 <Button colorScheme="yellow" mr={3} onClick={openPDF}>
                     Ver en PDF
-                </Button>
+                </Button>) : (<></>)}
                 {!VerYEditar ? (
                     <Button
                     colorScheme="green"

@@ -11,14 +11,16 @@ export default function Body(props) {
     let mesBautizo = ""
     let mesCumple = ""
 
-    if (data[0] !== ""){
-        cumpleDate = data[0].birth.split("-")
-        mesCumple = new Date(data[0].birth)
-        console.log(mesCumple)
-    }
-    if (data[1] !== ""){
-        bautizoDate = data[1].Bautismo.b_date.split("-")
-        mesBautizo = new Date(data[1].Bautismo.b_date)
+    if (data[0] != undefined){
+        if (data[0] !== ""){
+            cumpleDate = data[0].birth.split("-")
+            mesCumple = new Date(data[0].birth)
+            console.log(mesCumple)
+        }
+        if (data[1] !== ""){
+            bautizoDate = data[1].Bautismo.b_date.split("-")
+            mesBautizo = new Date(data[1].Bautismo.b_date)
+        }
     }
 
     console.log(date)
