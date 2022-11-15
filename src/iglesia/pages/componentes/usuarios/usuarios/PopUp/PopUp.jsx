@@ -128,6 +128,14 @@ export default function PopUp(props) {
                 {
                     mensaje = "El correo y/o la contraseña no pueden estar en blanco.";
                 }
+                if (peticion.data.msg == "cant give that rol")
+                {
+                    mensaje = "El rol seleccionado es inválido.";
+                }
+                if (peticion.data.msg == "no perms")
+                {
+                    mensaje = "No tienes permisos suficientes para esto.";
+                }
                 toast({
                     title: `Error`,
                     description: mensaje,
@@ -162,6 +170,14 @@ export default function PopUp(props) {
                 if (peticion.data.msg == "user not found")
                 {
                     mensaje = "El usuario no se ha encontrado ¿A lo mejor lo borraste anteriormente?.";
+                }
+                if (peticion.data.msg == "cant give that rol")
+                {
+                    mensaje = "El rol seleccionado es inválido.";
+                }
+                if (peticion.data.msg == "no perms")
+                {
+                    mensaje = "No tienes permisos suficientes para esto.";
                 }
                 toast({
                     title: `Error`,

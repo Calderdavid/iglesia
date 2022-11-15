@@ -227,6 +227,10 @@ export default function PopUp(props) {
                 {
                     mensaje = "El Nombre y el Apellido no pueden estar en blanco.";
                 }
+                if (peticion.data.msg == "no perms")
+                {
+                    mensaje = "No tienes permisos suficientes para esto.";
+                }
                 toast({
                     title: `Error`,
                     description: mensaje,
@@ -257,6 +261,10 @@ export default function PopUp(props) {
                 if (peticion.data.msg == "name and lastname cant be blank")
                 {
                     mensaje = "El Nombre y el Apellido no pueden estar en blanco.";
+                }
+                if (peticion.data.msg == "no perms")
+                {
+                    mensaje = "No tienes permisos suficientes para esto.";
                 }
                 toast({
                     title: `Error`,
