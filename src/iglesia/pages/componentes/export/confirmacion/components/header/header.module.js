@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   subcontainerR: {
     flexDirection: "column",
     alignItems: "center",
-    padding: "5% 0 0 32%",
+    padding: "9% 0 0 32%",
     lineHeight:"1.5pt",
     fontFamily: "Raleway-regular",
     fontSize: "2.4vw",
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   subcontainerL: {
     flexDirection: "column",
     alignItems: "center",
-    padding: "5% 0 0 10%",
+    padding: "9% 0 0 10%",
     lineHeight:"2pt",
     fontFamily: "Raleway-regular",
     fontSize: "2.4vw",
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   subsubcontainerR: {
     flexDirection: "column",
     alignItems: "center",
-    padding: "5% 0 0 12%",
+    padding: "9% 0 0 12%",
     lineHeight:"1.5pt",
     fontFamily: "Raleway-regular",
     fontSize: "2.4vw",

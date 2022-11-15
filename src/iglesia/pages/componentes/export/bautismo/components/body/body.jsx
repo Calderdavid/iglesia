@@ -13,17 +13,17 @@ export default function Body(props) {
 
     if (data[0] != undefined){
         if (data[0] !== ""){
-            cumpleDate = data[0].birth.split("-")
-            mesCumple = new Date(data[0].birth)
+            cumpleDate = data[0].birth.replace("?","1").split("-")
+            mesCumple = new Date(data[0].birth.replace("?","1"))
             console.log(mesCumple)
         }
         if (data[1] !== ""){
-            bautizoDate = data[1].Bautismo.b_date.split("-")
-            mesBautizo = new Date(data[1].Bautismo.b_date)
+            bautizoDate = data[1].Bautismo.b_date.replace("?","1").split("-")
+            mesBautizo = new Date(data[1].Bautismo.b_date.replace("?","1"))
         }
     }
 
-    console.log(date)
+    console.log(bautizoDate)
     return (
         <View>
             {data[1] === "" ? (

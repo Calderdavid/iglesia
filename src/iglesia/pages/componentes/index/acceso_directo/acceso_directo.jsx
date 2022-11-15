@@ -78,23 +78,23 @@ export default function AccesoDirecto(){
                         </Box>
                     </Box>
 
-                <Link href="/">
+                <Link href="/ExportBaptism">
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
                             <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
-                            Unused
+                            Ver PDF Bautismo
                         </Box>
                     </Box>
                 </Link>
-                <Link href="/">
+                <Link href="/ExportConfirmacion">
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
                             <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
-                            Unused
+                            Ver PDF Confirmación
                         </Box>
                     </Box>
                 </Link>

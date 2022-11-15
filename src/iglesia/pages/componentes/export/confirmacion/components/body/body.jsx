@@ -15,15 +15,15 @@ export default function Body(props) {
 
     if (data[0] != undefined){
         if (data[0] !== ""){
-            cumpleDate = data[0].birth.split("-")
-            mesCumple = new Date(data[0].birth)
+            cumpleDate = data[0].birth.replace("?","1").split("-")
+            mesCumple = new Date(data[0].birth.replace("?","1"))
             console.log(mesCumple)
         }
         if (data[1] !== "" && data[1].Confirmacion !== ""){
-            bautizoDate = data[1].Bautismo.b_date.split("-")
-            mesBautizo = new Date(data[1].Bautismo.b_date)
-            confirmacionDate = data[1].Confirmacion.c_date.split("-")
-            mesConfirmacion = new Date(data[1].Confirmacion.c_date)
+            bautizoDate = data[1].Bautismo.b_date.replace("?","1").split("-")
+            mesBautizo = new Date(data[1].Bautismo.b_date.replace("?","1"))
+            confirmacionDate = data[1].Confirmacion.c_date.replace("?","1").split("-")
+            mesConfirmacion = new Date(data[1].Confirmacion.c_date.replace("?","1"))
         }
     }
 
