@@ -6,6 +6,7 @@ import { Documentos } from '../iglesia/pages/Documentos'
 import { Usuarios } from '../iglesia/pages/Usuarios'
 import { IglesiaPage } from "../iglesia/pages/IglesiaPage"
 import { ExportBaptism } from '../iglesia/pages/ExportBaptism'
+import { ExportConfirmacion } from '../iglesia/pages/ExportConfirmacion'
 
 
 export const AppRouter = () => {
@@ -40,6 +41,7 @@ export const AppRouter = () => {
                 <Route path="/Documentos" element={<Documentos/>} />
                 <Route path="/Usuarios" element={<Usuarios/>} />
                 <Route path="/ExportBaptism" element={ <ExportBaptism/> } />
+                <Route path="/ExportConfirmacion" element={ <ExportConfirmacion/> } />
                 <Route path="/*" element={ <Navigate to="/" /> } />
               </>
             )

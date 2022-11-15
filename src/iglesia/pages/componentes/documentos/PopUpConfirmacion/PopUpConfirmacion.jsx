@@ -71,6 +71,10 @@ export default function PopUpConfirmacion(props) {
         onClose()
     }
 
+    const openPDF = async (event) => {
+        window.location.href = '/ExportConfirmacion?View=true&' + data._id
+    }
+
     useEffect(() => {
         if (ShowConfirmacion.Show == true && disable == false) {
             setData(DocumentInfo)
@@ -165,6 +169,10 @@ export default function PopUpConfirmacion(props) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+            {!VerYEditar ? (
+                <Button colorScheme="yellow" mr={3} onClick={openPDF}>
+                    Ver en PDF
+                </Button>) : (<></>)}
             {!VerYEditar ? (
                 <Button colorScheme="green" mr={3} onClick={onClose}>
                     Aceptar
