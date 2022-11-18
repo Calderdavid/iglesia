@@ -10,7 +10,7 @@ export default function Body(props) {
     let cumpleDate = ""
     let mesBautizo = ""
     let mesCumple = ""
-
+    console.log(data)
     if (data[0] != undefined){
         if (data[0] !== ""){
             cumpleDate = data[0].birth.replace("?","1").split("-")
@@ -23,7 +23,6 @@ export default function Body(props) {
         }
     }
 
-    console.log(bautizoDate)
     return (
         <View>
             {data[1] === "" ? (

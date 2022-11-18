@@ -13,7 +13,7 @@ export const ExportBaptism = () => {
     const RequestData = async (trim) => {
         const peticion = await iglesiaApi.post('/getdocument', {selectValue: "exportPackage", search: trim})
         setDocumento(peticion.data.documents[0])
-        const getbautismo = await iglesiaApi.post('/getadjacentdocuments', {Bautismo: peticion.data.documents[0].Bautismo, Confirmacion: "", Matrimonio: "", parent_Data: peticion.data.documents[0].parent_Data})
+        const getbautismo = await iglesiaApi.post('/getadjacentdocuments', {Bautismo: peticion.data.documents[0].Bautismo, Confirmacion: "", Matrimonio: "", parent_Data: peticion.data.documents[0].parent_Data, export:true})
         setadDocumentos(getbautismo.data)
         //setHasData(true)
     }
