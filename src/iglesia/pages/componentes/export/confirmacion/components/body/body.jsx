@@ -13,21 +13,20 @@ export default function Body(props) {
     let confirmacionDate = ""
     let mesConfirmacion = ""
 
+    //console.log(data)
     if (data[0] != undefined){
         if (data[0] !== ""){
             cumpleDate = data[0].birth.replace("?","1").split("-")
             mesCumple = new Date(data[0].birth.replace("?","1"))
             console.log(mesCumple)
         }
-        if (data[1] !== "" && data[1].Confirmacion !== ""){
+        if (data[1] !== ""){
             bautizoDate = data[1].Bautismo.b_date.replace("?","1").split("-")
             mesBautizo = new Date(data[1].Bautismo.b_date.replace("?","1"))
             confirmacionDate = data[1].Confirmacion.c_date.replace("?","1").split("-")
             mesConfirmacion = new Date(data[1].Confirmacion.c_date.replace("?","1"))
         }
     }
-
-    console.log(data)
     return (
         <View>
             {data[1] === "" || data[1].Confirmacion === "" ? (
