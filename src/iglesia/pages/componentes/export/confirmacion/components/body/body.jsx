@@ -21,10 +21,12 @@ export default function Body(props) {
             console.log(mesCumple)
         }
         if (data[1] !== ""){
-            bautizoDate = data[1].Bautismo.b_date.replace("?","1").split("-")
-            mesBautizo = new Date(data[1].Bautismo.b_date.replace("?","1"))
-            confirmacionDate = data[1].Confirmacion.c_date.replace("?","1").split("-")
-            mesConfirmacion = new Date(data[1].Confirmacion.c_date.replace("?","1"))
+            if(data[1].Confirmacion !== ""){
+                bautizoDate = data[1].Bautismo.b_date.replace("?","1").split("-")
+                mesBautizo = new Date(data[1].Bautismo.b_date.replace("?","1"))
+                confirmacionDate = data[1].Confirmacion.c_date.replace("?","1").split("-")
+                mesConfirmacion = new Date(data[1].Confirmacion.c_date.replace("?","1"))
+            }
         }
     }
     return (
