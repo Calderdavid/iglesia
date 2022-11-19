@@ -460,7 +460,7 @@ export default function PopUp(props) {
                                 bautizó y puso óleo y crisma
                             </Box>
                             <Box w="30vw">
-                                <Input name="b_father" borderColor="black" placeholder="Nombre y Apellido del Padre" value={data.Bautismo.b_father} readOnly={!VerYEditar} onChange={handleBaptismInputText}/>
+                                <Input name="b_father" borderColor="black" placeholder="Nombre y Apellido del Ministro" value={data.Bautismo.b_father} readOnly={!VerYEditar} onChange={handleBaptismInputText}/>
                             </Box>
                         </HStack>
                         <HStack paddingTop="1vw">

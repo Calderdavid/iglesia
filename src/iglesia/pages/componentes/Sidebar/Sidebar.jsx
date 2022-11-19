@@ -10,13 +10,19 @@ import users_black from "../../../../assets/images/users_black.png"
 import users_white from "../../../../assets/images/users_white.png"
 import logout from "../../../../assets/images/logout.svg"
 import logo from "../../../../assets/images/logo.png"
+
 import { useAuthStore } from '../../../../hooks/usAuthStore'
 
 export default function Sidebar(props) {
   const {startLogout}=useAuthStore();
-  
+
   const LinkItems = [
-    { name: 'Tablero Principal', icon: dashboard_black, ref: '/', class: Styles.topics },
+    { 
+      name: 'Tablero Principal', 
+      icon: dashboard_black,
+      ref: '/',
+      class: Styles.topics,
+    },
     {
       name: 'Documentos',
       icon: docs_black,
@@ -34,7 +40,7 @@ export default function Sidebar(props) {
   const Items = LinkItems.map((link) => {
     if (link.name === actual) {
       link.class = [link.class, Styles.active].join(' ')
-      link.icon = link.icon.replace('black', 'white')
+      //link.icon = link.icon.replace('black', 'white')
     }
     return link
   })
@@ -49,14 +55,14 @@ export default function Sidebar(props) {
       <VStack alignItems="start">
         {Items.map((link) => (
           <Link key={link.name} style={{ textDecoration: 'none' }} href={link.ref}>
-              <Flex className={link.class} alignContent="center">
-                <Image
+              <Flex className={link.class} alignContent="center" paddingLeft="2vw">
+                {/* <Image
                   src={`${link.icon}`}
                   alt={link.name}
                   w="1.5vw"
                   mr="16px"
                   ml="2.5vw"
-                />
+                /> */}
                 {link.name}
               </Flex>
           </Link>
@@ -84,6 +90,24 @@ export default function Sidebar(props) {
           </Link>
         </Box>
       </VStack>
+      <Image
+        src={docs_white}
+        w="2px"
+        mr="2px"
+        ml="2px"
+      />
+      <Image
+        src={dashboard_white}
+        w="2px"
+        mr="2px"
+        ml="2px"
+      />
+      <Image
+        src={users_white}
+        w="2px"
+        mr="2px"
+        ml="2px"
+      />
     </Box>
   )
 }

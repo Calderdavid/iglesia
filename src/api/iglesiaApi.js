@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const iglesiaApi = axios.create({
-    baseURL: "http://localhost:8000"
+    baseURL:  import.meta.env.VITE_API_URL
 })
 
 //Todo: configurar interceptores

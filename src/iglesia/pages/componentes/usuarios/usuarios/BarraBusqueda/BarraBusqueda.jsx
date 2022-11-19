@@ -5,7 +5,7 @@ import Plus from '../../../../../../assets/images/plus.png'
 
 import { useDispatch } from "react-redux"
 import { onAddUser } from '../../../../../../store/usuarios/addUser'
-import { onViewUser, onVerYEditar } from "../../../../../../store/usuarios/viewuser"
+import { onViewUser, onVerYEditar } from "../../../../../../store/usuarios/viewUser"
 import { onGetUser } from "../../../../../../store/usuarios/getUser"
 import { useState, useEffect } from "react"
 import iglesiaApi from '../../../../../../api/iglesiaApi';

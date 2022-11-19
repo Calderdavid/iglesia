@@ -19,7 +19,7 @@ import Borrar from '../../../../../../assets/images/delete.png'
 import { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import iglesiaApi from '../../../../../../api/iglesiaApi'
-import { onEditUser, onVerYEditar, onViewUser } from '../../../../../../store/usuarios/viewuser'
+import { onEditUser, onVerYEditar, onViewUser } from '../../../../../../store/usuarios/viewUser'
 import { onAddUser } from '../../../../../../store/usuarios/addUser'
 import { useSelector, useDispatch } from 'react-redux'
 

@@ -132,7 +132,7 @@ export default function PopUpConfirmacion(props) {
                             se confirmó por
                         </Box>
                         <Box w="26vw">
-                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Padre" name="c_father" value={data.Confirmacion.c_father} onChange={handleConfirmacionInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Ministro" name="c_father" value={data.Confirmacion.c_father} onChange={handleConfirmacionInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">

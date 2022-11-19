@@ -5,7 +5,7 @@ import { addUser } from "./usuarios/addUser";
 import { actualizarDocumentos } from "./documentos/actualizardocumento"
 import { addDocument } from "./documentos/addDocument";
 import { addSacramentos } from "./documentos/addSacramentos";
-import { viewUser } from "./usuarios/viewuser";
+import { viewUser } from "./usuarios/viewUser";
 import { getUser } from "./usuarios/getUser";
 
 export const store = configureStore({

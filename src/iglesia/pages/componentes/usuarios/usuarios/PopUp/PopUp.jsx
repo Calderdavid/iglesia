@@ -27,7 +27,7 @@ import Swal from "sweetalert2";
 
 import iglesiaApi from '../../../../../../api/iglesiaApi'
 import Styles from './PopUp.module.scss'
-import { onVerYEditar, onViewUser } from '../../../../../../store/usuarios/viewuser'
+import { onVerYEditar, onViewUser } from '../../../../../../store/usuarios/viewUser'
 
 export default function PopUp(props) {
     const options = [

@@ -139,7 +139,7 @@ export default function PopUpMatrimonio(props) {
                             Fueron bendecidos en sagrado Matrimonio por
                         </Box>
                         <Box w="22vw">
-                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Padre" name="m_father" value={data.Matrimonio.m_father} onChange={handleMarriageInputText}/>
+                            <Input borderColor="black" readOnly={!VerYEditar} placeholder="Nombre y Apellido del Ministro" name="m_father" value={data.Matrimonio.m_father} onChange={handleMarriageInputText}/>
                         </Box>
                     </HStack>
                     <HStack paddingTop="1vw">
