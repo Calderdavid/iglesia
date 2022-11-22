@@ -40,7 +40,7 @@ export default function Sidebar(props) {
   const Items = LinkItems.map((link) => {
     if (link.name === actual) {
       link.class = [link.class, Styles.active].join(' ')
-      //link.icon = link.icon.replace('black', 'white')
+      link.icon = link.icon.replace('black', 'white')
     }
     return link
   })
@@ -55,14 +55,14 @@ export default function Sidebar(props) {
       <VStack alignItems="start">
         {Items.map((link) => (
           <Link key={link.name} style={{ textDecoration: 'none' }} href={link.ref}>
-              <Flex className={link.class} alignContent="center" paddingLeft="2vw">
-                {/* <Image
+              <Flex className={link.class} alignContent="center" /* paddingLeft="2vw" */>
+                <Image
                   src={`${link.icon}`}
                   alt={link.name}
                   w="1.5vw"
                   mr="16px"
                   ml="2.5vw"
-                /> */}
+                />
                 {link.name}
               </Flex>
           </Link>

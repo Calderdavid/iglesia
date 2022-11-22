@@ -35,7 +35,7 @@ export default function AccesoDirecto(){
                 <Link onClick={addDocumento}>
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
-                            <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
+                            <Image src={unused} w="1.8vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
                             Crear Documento
@@ -45,7 +45,7 @@ export default function AccesoDirecto(){
 
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
-                            <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
+                            <Image src={unused} w="1.8vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
                             <Table className={Styles.UVregular}>
@@ -81,7 +81,7 @@ export default function AccesoDirecto(){
                 <Link href="/ExportBaptism">
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
-                            <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
+                            <Image src={unused} w="1.8vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
                             Ver PDF Bautismo
@@ -91,10 +91,20 @@ export default function AccesoDirecto(){
                 <Link href="/ExportConfirmacion">
                     <Box className={Styles.boton}>
                         <Box className={Styles.boton_imagenes}>
-                            <Image src={unused} w="2vw" margin=".4vw 0 0 .89vw" />
+                            <Image src={unused} w="1.8vw" margin=".4vw 0 0 .89vw" />
                         </Box >
                         <Box className={Styles.boton_texto}>
                             Ver PDF Confirmación
+                        </Box>
+                    </Box>
+                </Link>
+                <Link href="/ExportMatrimonio">
+                    <Box className={Styles.boton}>
+                        <Box className={Styles.boton_imagenes}>
+                            <Image src={unused} w="1.8vw" margin=".4vw 0 0 .89vw" />
+                        </Box >
+                        <Box className={Styles.boton_texto}>
+                            Ver PDF Matrimonio
                         </Box>
                     </Box>
                 </Link>
